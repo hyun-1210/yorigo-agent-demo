@@ -1,176 +1,110 @@
-# 요리고 (Yorigo) 🍳
+# YoriGO Agentic Shopping
 
-**AI-Powered Recipe Management & Smart Shopping for Korean Home Cooking**
+먹고 싶은 요리를 말하면, 취향과 냉장고를 읽고 장바구니를 만들어 구매 확인까지 이어 주는 요리 특화 쇼핑 에이전트입니다.
 
-Yorigo transforms YouTube cooking videos into actionable recipes and helps you shop smarter by optimizing ingredient purchases and minimizing food waste.
+요리GO(Yorigo)는 이미 레시피, 냉장고, 상품 카탈로그를 가진 서비스입니다. 이 데모는 그 위에 한 주의 식단과 장보기를 하나의 계획으로 묶습니다. 사용자는 무엇을 먹을지 대체로 알고 있습니다. 막히는 지점은 무엇을, 얼마나, 어떤 포장으로 사야 하는지입니다.
 
----
+요리GO · NAVER D2SF 2026 Incubation
 
-## 🎯 Key Features
+연락: ysho1218@gmail.com
 
-### 📹 AI Recipe Extraction
-- **Parse any YouTube cooking video** into structured recipes
-- **Smart content filter** detects and rejects non-cooking videos early (saves processing time & cost)
-- Combines **speech recognition (Whisper ASR)** + **optical character recognition (EasyOCR)** + **GPT-4**
-- Automatically extracts ingredients, quantities, steps, and nutritional information
+## 문제
 
-### 🛒 Smart Shopping Cart
-- **Intelligent ingredient aggregation** across multiple recipes
-- **Optimal product search** via Coupang API to minimize food waste and cost
-- Categorized shopping lists (protein, vegetables, grains, seasonings)
-- Real-time price comparison and per-serving cost calculation
+레시피는 저장되지만, 장바구니 앞에서 멈춥니다. 저장과 구매 사이에 사람이 직접 하는 결정이 다섯 단계 남아 있습니다.
 
-### 🤖 Personalized Recommendations
-- **Q-Learning based recommendation system** that learns your preferences
-- Suggests recipes that **reuse leftover ingredients** to reduce waste
-- Calculates potential savings from adding recommended recipes
-- Adapts to your cooking habits and taste profile over time
+1. 저장한 레시피 중에서 오늘 만들 메뉴를 고릅니다.
+2. 인분에 맞게 재료 수량을 계산합니다.
+3. 냉장고에 이미 있는 간장, 두부, 계란을 뺍니다.
+4. 포장 단위, 가격, 배송을 비교합니다.
+5. 여기서 대부분 요리를 포기합니다.
 
-### 📅 Meal Planning
-- Visual calendar for planning weekly meals
-- Track servings and cooking days
-- Sync shopping lists with planned meals
-- One-tap deletion of meals and associated ingredients
+이것은 검색 문제가 아니라 결정 문제입니다. 추천을 하나 더 보여주는 것으로는 풀리지 않습니다. 여러 레시피를 하나의 구매 계획으로 합치고, 보유 재료를 빼고, 포장 단위와 예산을 같이 맞춰야 합니다.
 
----
+## 데모
 
-## 🛠️ Tech Stack
+취향을 다시 묻지 않습니다. 되돌릴 수 없는 지출만 확인받습니다. 홈의 에이전트에서 이렇게 이어집니다.
 
-### Frontend
-- **Flutter (Dart)** - Cross-platform mobile & web app
-- **Firebase Auth** - User authentication
-- **Firebase Firestore** - Real-time database
-- **Device Frame** - Mobile viewport simulation for web demo
+1. `이번 주에 뭐 해먹지?`  
+   저장 레시피, 가구 수, 기피 식재료, 냉장고를 읽어 저녁 식단을 제안합니다. 밀가루가 들어간 면 요리는 빼니다.
+2. `이대로 장보기`  
+   식단을 고정하고, 냉장고에 있는 재료를 뺀 구매 목록과 상품 카드를 만듭니다. 카드에는 채널, 상품명, 가격, 별점, 리뷰 수가 있습니다.
+3. `담아줘`  
+   지출 확인 뒤에만 장바구니에 반영합니다.
 
-### Backend
-- **FastAPI (Python)** - High-performance REST API
-- **yt-dlp** - Video content extraction
-- **Whisper (faster-whisper)** - Speech-to-text transcription
-- **EasyOCR** - On-screen text extraction
-- **OpenAI GPT-4** - Recipe structuring and categorization
-- **FFmpeg** - Video frame extraction for OCR
+중간에 조건을 바꿔도 같은 장보기 위에서 다시 계산합니다.
 
-### AI & Machine Learning
-- **Q-Learning** - Reinforcement learning for recipe recommendations
-- **Multi-modal pipeline** - Audio (ASR) + Visual (OCR) + Language (LLM)
-- **Epsilon-greedy exploration** - Balances personalization with discovery
+- `돼지갈비 재료`는 그 요리의 재료와 설명을 보여 줍니다.
+- `상품 추천해줘`는 카탈로그에 있는 실제 상품을 고릅니다.
+- `장바구니에 뭐 담아뒀어?`는 이미 담긴 요리를 읽습니다.
+- 알레르기·기피 재료가 들어간 대체 요청, 예산 초과, 요리와 무관한 질문, 외부 링크 요청은 정책에서 멈춥니다.
 
-### Infrastructure
-- **Railway** - Backend hosting with Docker
-- **Firebase Hosting** - Frontend web deployment
-- **Coupang Partners API** - E-commerce product search
+## 구조
 
----
+채팅 기록만으로 상태를 유지하지 않습니다. 세션의 상태는 `ShoppingRun`이고, 화면은 그 결과인 식단, 구매 차이, 상품 카드를 그립니다.
 
-## 🚀 Value Propositions
+| 단계 | 담고 있는 것 |
+| --- | --- |
+| TasteProfile | 저장 레시피, 가구 수, 요리 빈도, 기피 식재료 |
+| Goal | 이번 주 식단과 예산 |
+| MealPlan | 끼니별 레시피, 인분 |
+| GapList | 필요량에서 냉장고 보유량을 뺀 재료 |
+| Basket | 상품명, 가격, 별점, 이미지, 채널 |
 
-1. **Save Time** - No more manual recipe transcription from videos
-2. **Save Money** - Optimize purchases to reduce food waste and cost
-3. **Reduce Waste** - Smart recommendations for leftover ingredients
-4. **Personalized** - Learns your preferences to suggest recipes you'll love
-5. **Convenient** - From video → recipe → shopping → cooking, all in one app
+전문가 여섯은 대화 상대가 아닙니다. 정해진 입력을 읽고 구조화된 결과를 돌려주는 도구입니다.
 
----
+| 도구 | 읽는 것 | 돌려주는 것 |
+| --- | --- | --- |
+| yorigo-recipe-library | 저장 레시피 | 후보 요리와 재료 |
+| yorigo-fridge-steward | 냉장고 | 이미 있는 재료를 뺀 차이 |
+| yorigo-cook-overlay | 대체 재료 | 대파가 없으면 쪽파처럼 조리 메모 |
+| yorigo-nutrition-veto | 기피·알레르기 | 해당 요리를 계획에서 제외 |
+| yorigo-shopper | 쿠팡 상품 캐시 | 상품명, 가격, 별점, 이미지 |
+| yorigo-basket-opt | 필요 중량과 가격 | 포장을 고른 장바구니 |
 
-## 📱 Platform Support
+지휘자는 사용자 문장을 도구 호출로 읽고, 도구가 반환한 사실만으로 한국어 답을 만듭니다. 근거에 없는 가격, 별점, 요리명이 들어가면 그 문장은 버리고 도구 결과를 그대로 보여 줍니다.
 
-- ✅ **iOS** (iPhone, iPad)
-- ✅ **Android** (Phone, Tablet)
-- ✅ **Web** (Desktop, Mobile browsers)
+## 이 저장소에서 동작하는 NVIDIA 스택
 
----
+추론 모델은 NVIDIA Nemotron 3 Super(`nvidia/nemotron-3-super-120b-a12b`)입니다. 호출 경로는 NVIDIA 통합 엔드포인트 `https://integrate.api.nvidia.com/v1/chat/completions`이고, 키는 서버 환경 변수로만 주입합니다.
 
-## 🎓 How It Works
+턴마다 모델은 두 곳에만 들어옵니다.
 
-### Recipe Parsing Pipeline
-```
-YouTube Video → Video Metadata Extraction
-              ↓
-         Content Filter (LLM) → Is Cooking Video?
-              ↓                      ↓
-         [YES Continue]         [NO Reject]
-              ↓
-         Audio + Video Extraction
-              ↓
-         ASR (Whisper) → Transcript
-              ↓
-         OCR (EasyOCR) → On-screen Text
-              ↓
-         LLM (GPT-4) → Structured Recipe
-              ↓
-         Nutrition Estimation
-```
+1. 사용자 발화를 도구 호출 JSON으로 바꿉니다. 냉장고, 재료, 상품, 이번 주처럼 대상이 분명하면 서버의 결정적 규칙이 그 JSON을 확정합니다.
+2. 도구가 돌려준 사실만 보고 한국어로 말합니다. 상품 추천과 재료 조회는 문장이 잘리지 않도록 도구 문장을 그대로 보여 줍니다.
 
-### Recommendation System
-```
-User Cart + Preferences → State Representation
-              ↓
-         Q-Learning Agent
-              ↓
-         Recipe Selection (ε-greedy)
-              ↓
-         User Feedback → Q-Table Update
-```
+제어면은 NemoClaw의 정책 게이트와 OpenShell의 스킬 경계를 서버 오케스트레이션으로 구현했습니다. 별도 OpenShell 프로세스나 NemoClaw 런타임을 이 저장소에서 띄우지는 않습니다. 정책은 코드로 고정되어 있습니다.
 
----
+- 알레르기·기피 식재료는 하드 스톱입니다. 갑각류, 밀, 복숭아가 여기에 해당합니다.
+- 예산 초과는 사용자가 허용하기 전에는 막습니다.
+- 외부 URL로의 이탈은 막습니다.
+- 요리와 장보기가 아닌 주제는 거절합니다.
+- 장바구니 쓰기는 지출 확인 이후에만 합니다.
 
-## 🌟 Demo
+상품 수량 조합은 결정적 greedy solver입니다. 선택 근거는 필요 중량, 가격, 별점, 잔여량입니다. cuOpt MILP는 아래 로드맵에 있습니다. 레시피 ID와 상품 ID는 모델이 만들지 않고, Firestore에 있는 문서만 사용합니다.
 
-**Web App**: [yorigo-f7408.web.app](https://yorigo-f7408.web.app)
+## 안전과 구매 범위
 
-**Backend API**: [yorigo-production.up.railway.app](https://yorigo-production.up.railway.app)
+사람이 확인해야 하는 지점은 두 곳입니다.
 
----
+- 식단을 이 구성으로 고정할지.
+- 그 금액으로 장바구니에 담을지.
 
-## 🔐 Flutter 키 주입 & 배포 명령
+데모의 장바구니 반영은 앱 안의 카트입니다. 쿠팡·컬리의 실제 결제 완료를 구매로 보여 주지 않습니다. 시연용 냉장고, 저장 레시피, 장바구니 데이터는 데모 계정에 넣어 둔 데이터입니다.
 
-카카오 키는 하드코딩하지 않고 `yorigo-frontend/dart_define.local.json`에서 주입합니다.
+## 로드맵
 
-- 로컬 키 파일: `yorigo-frontend/dart_define.local.json`
-- 예시 템플릿(커밋됨): `yorigo-frontend/dart_define.example.json`
-- git 추적 제외: `yorigo-frontend/.gitignore`
+자료의 P0–P1에 해당하는 루프, 즉 식단 제안, 냉장고 차감, 기피 재료 차단, 상품 카드, 지출 확인 후 카트는 이 서버 경로에 있습니다.
 
-### 새 개발자 초기 설정
+이후 범위는 따로 있습니다.
 
-`yorigo-frontend`에서 1회 실행:
+- OpenShell 샌드박스와 NemoClaw 런타임, `policy.yaml` allowlist
+- NeMo Retriever와 RAG Blueprint로 레시피·SKU 검색
+- cuOpt로 장바구니 MILP 전환
+- NeMo Agent Toolkit의 병렬 디스패치와 Guardrails 런타임
+- 구매 결과를 냉장고에 다시 넣는 닫힌 루프, 여러 마켓 분할, 음성
 
-- `.\tool\init_local_keys.ps1`
+## 앱 스택
 
-그 다음 생성된 `dart_define.local.json`에서 placeholder를 실제 키로 교체하세요.
+Flutter(Android), Firebase Authentication, Cloud Firestore, 쿠팡 상품 캐시, Python FastAPI.
 
-### Windows (PowerShell)
-
-`yorigo-frontend`에서 아래 중 필요한 것만 실행하면 됩니다.
-
-- Android 실행: `.\tool\run_android_with_keys.ps1`
-- Chrome 실행(모바일 뷰): `.\tool\run_chrome_galaxy_s26.ps1`
-- Android AAB 릴리즈(Play 업로드용): `.\tool\build_android_aab_release_with_keys.ps1`
-- Android APK 릴리즈(직접 설치 테스트용): `.\tool\build_android_apk_release_with_keys.ps1`
-- Web 릴리즈 빌드: `.\tool\build_web_release_with_keys.ps1`
-
-### macOS (iOS 배포용)
-
-`yorigo-frontend`에서:
-
-- iOS 실행(시뮬레이터/기기): `bash ./tool/run_ios_with_keys.sh`
-- iOS IPA 릴리즈: `bash ./tool/build_ios_ipa_release_with_keys.sh`
-- iOS IPA (공유 dart_defines): `bash ./tool/build_ipa_release_dart_defines.sh`
-
-> `USE_MACMINI_PARSING=true` — 파싱은 `parse.yorigo.kr`(맥미니), 그 외 API는 Railway/AWS.
-> Android와 동일. Xcode Archive만 하면 dart-define이 빠질 수 있으므로 위 스크립트 사용 권장.
->
-> 카카오: `Info.plist` URL 스킴(`kakao<NativeAppKey>`)과 `dart_define.local.json`의
-> `KAKAO_NATIVE_APP_KEY`가 일치해야 로그인 콜백이 동작합니다.
-
----
-
-## 📄 License
-
-© 2025 Yorigo. All rights reserved.
-
----
-
-## 👥 Team
-
-Built with ❤️ by the Yorigo team for Korean home cooks who want to simplify meal planning and reduce food waste.
-
+모바일 클라이언트는 데모 서버 HTTPS로 `POST /grocery_agent/turn`을 호출합니다. 영상에서 레시피를 추출하는 파싱 파이프라인은 이 공개 스냅샷에 포함하지 않았습니다.
