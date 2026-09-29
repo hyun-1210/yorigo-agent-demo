@@ -1,0 +1,113 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '15.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
+
+  # Kakao ASWebAuthenticationSession.presentationAnchor: vanilla SDK uses keyWindow only.
+  # iOS 16.4+ / Flutter embedding → AuthenticationServices error 3 when keyWindow is nil.
+  # [yorigo] v3: FlutterAppDelegate.window → 모든 UIWindowScene의 보이는 UIWindow 순회.
+  #
+  # 블록 정규식으로 vanilla 및 직전 v2 패치를 덮어써서 `pod install`마다 최신 패치 유지.
+  kakao_v3_marker = '[yorigo] v3: Flutter embedding + all visible windows'
+  kakao_v2_marker = '[yorigo] v2: Prefer Flutter embedding window'
+  ios_project_root = File.dirname(File.realpath(__FILE__))
+  anchor_re = /\n\n    public func presentationAnchor\(for session: ASWebAuthenticationSession\) -> ASPresentationAnchor \{[\s\S]*?\n    \}\n\n(?=    public func onListen\b)/m
+  anchor_vanilla_single_re =
+    /public func presentationAnchor\(for session: ASWebAuthenticationSession\) -> ASPresentationAnchor \{\s*return UIApplication.shared.keyWindow \?\? ASPresentationAnchor\(\)\s*\}/m
+
+  Dir.glob(File.join(ios_project_root, '**', 'KakaoFlutterSdkCommonPlugin.swift')).each do |swift_path|
+    next unless File.file?(swift_path)
+    next if swift_path.include?('/build/')
+    next if swift_path.include?('/DerivedData/')
+    next if swift_path.include?('.symlinks/flutter')
+
+    source = File.read(swift_path)
+    if source.include?(kakao_v3_marker)
+      Kernel.puts("[Podfile] Kakao presentationAnchor v3 already applied — #{swift_path}")
+      next
+    end
+
+    body = [
+      '    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {',
+      "        // #{kakao_v3_marker}",
+      '        let app = UIApplication.shared',
+      '        if let d = app.delegate as? FlutterAppDelegate, let w = d.window {',
+      '            return w',
+      '        }',
+      '        let scenes = app.connectedScenes.compactMap { $0 as? UIWindowScene }',
+      '        for ws in scenes {',
+      '            if let w = ws.windows.first(where: { $0.isKeyWindow && !$0.isHidden && $0.alpha > 0 }) {',
+      '                return w',
+      '            }',
+      '        }',
+      '        for ws in scenes {',
+      '            if let w = ws.windows.first(where: { !$0.isHidden && $0.alpha > 0 }) {',
+      '                return w',
+      '            }',
+      '        }',
+      '        return app.keyWindow ?? ASPresentationAnchor()',
+      '    }',
+    ].join("\n")
+
+    patched = nil
+    if source =~ anchor_re
+      patched = source.sub(anchor_re, "\n\n#{body}\n\n")
+      Kernel.puts("[Podfile] Patched Kakao presentationAnchor block → v3 — #{swift_path}")
+    elsif source =~ anchor_vanilla_single_re
+      patched = source.sub(anchor_vanilla_single_re, body)
+      Kernel.puts("[Podfile] Patched Kakao presentationAnchor vanilla single-line → v3 — #{swift_path}")
+    end
+
+    unless patched
+      if source.include?('presentationAnchor(for session:')
+        STDERR.puts "[Podfile] WARN: Kakao presentationAnchor 패턴 불일치 — #{swift_path}"
+      elsif source.include?(kakao_v2_marker)
+        STDERR.puts "[Podfile] WARN: Kakao v2 패치 검출했으나 정규식 불일치 — #{swift_path} (수동으로 v3 블록으로 교체 필요)"
+      end
+      next
+    end
+
+    File.write(swift_path, patched)
+  end
+end

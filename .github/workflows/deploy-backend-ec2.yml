@@ -1,0 +1,132 @@
+# EC2 is intentionally STOPPED / dormant.
+# Do NOT push-build or deploy unless someone types WAKE_EC2.
+# Railway remains production. Resume only after starting the instance in AWS.
+#
+# Secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, EC2_INSTANCE_ID
+name: Deploy Backend to EC2
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_wake:
+        description: "EC2 is dormant. Type exactly WAKE_EC2 to build ECR and deploy via SSM."
+        required: true
+        type: string
+        default: ""
+
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REPOSITORY: yorigo-backend
+
+jobs:
+  guard:
+    name: Require WAKE_EC2 confirmation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check wake confirmation
+        env:
+          CONFIRM: ${{ inputs.confirm_wake }}
+        run: |
+          set -euo pipefail
+          if [ "${CONFIRM}" != "WAKE_EC2" ]; then
+            echo "Blocked: EC2 is dormant. Refusing build/deploy."
+            echo "Start the instance in AWS first, then re-run with confirm_wake=WAKE_EC2."
+            exit 1
+          fi
+          echo "Wake confirmation accepted."
+
+  build-and-push:
+    name: Build and push to ECR
+    needs: guard
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -f backend/Dockerfile \
+            -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" \
+            -t "$ECR_REGISTRY/$ECR_REPOSITORY:latest" \
+            .
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+
+  deploy:
+    name: Deploy to EC2
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Sync deploy.sh from repo and run on EC2 via SSM
+        env:
+          INSTANCE_ID: ${{ secrets.EC2_INSTANCE_ID }}
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image_tag }}
+        run: |
+          set -euo pipefail
+          DEPLOY_B64=$(base64 -w 0 backend/scripts/ec2-deploy.sh)
+          COMMAND_ID=$(aws ssm send-command \
+            --instance-ids "$INSTANCE_ID" \
+            --document-name "AWS-RunShellScript" \
+            --comment "GitHub Actions deploy $IMAGE_TAG" \
+            --parameters "commands=[
+              \"echo ${DEPLOY_B64} | base64 -d | sudo tee /opt/yorigo/deploy.sh > /dev/null\",
+              \"sudo chmod +x /opt/yorigo/deploy.sh\",
+              \"/opt/yorigo/deploy.sh ${IMAGE_TAG}\"
+            ]" \
+            --query "Command.CommandId" \
+            --output text)
+
+          echo "SSM CommandId: $COMMAND_ID"
+          for i in $(seq 1 60); do
+            STATUS=$(aws ssm get-command-invocation \
+              --command-id "$COMMAND_ID" \
+              --instance-id "$INSTANCE_ID" \
+              --query "Status" \
+              --output text)
+            echo "Deploy status ($i/60): $STATUS"
+            if [ "$STATUS" = "Success" ]; then
+              aws ssm get-command-invocation \
+                --command-id "$COMMAND_ID" \
+                --instance-id "$INSTANCE_ID" \
+                --query "StandardOutputContent" \
+                --output text
+              exit 0
+            fi
+            if [ "$STATUS" = "Failed" ] || [ "$STATUS" = "Cancelled" ] || [ "$STATUS" = "TimedOut" ]; then
+              aws ssm get-command-invocation \
+                --command-id "$COMMAND_ID" \
+                --instance-id "$INSTANCE_ID" \
+                --query "[StandardOutputContent,StandardErrorContent]" \
+                --output text
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "Deploy timed out waiting for SSM command"
+          exit 1

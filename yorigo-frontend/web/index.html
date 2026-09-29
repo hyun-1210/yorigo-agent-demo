@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Yorigo - 요리 레시피 앱">
+  
+  <!-- Google Sign-In Configuration -->
+  <meta name="google-signin-client_id" content="784944328733-engq2165koiihj0nshitqt4ftthh3l9s.apps.googleusercontent.com">
+  
+  <!-- Kakao JavaScript SDK -->
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script>
+    // Kakao SDK 초기화는 Flutter에서 처리
+    // 여기서는 스크립트만 로드
+  </script>
+  
+  <!-- Mobile Viewport Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="요리고">
+  
+  <!-- Prevent zooming and ensure mobile-like experience -->
+  <meta name="format-detection" content="telephone=no">
+  
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>요리고 (Yorigo)</title>
+  <link rel="manifest" href="manifest.json">
+  
+  <style>
+    /* Basic styling for Flutter web */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    /* Loading screen */
+    .loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      text-align: center;
+      z-index: 10000;
+      font-size: 18px;
+    }
+    
+    /* Scroll instruction */
+    .scroll-instruction {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      color: #333;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    .scroll-instruction-icon {
+      font-size: 18px;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Test credentials notice */
+    .test-credentials {
+      position: fixed;
+      top: 70px;
+      left: 20px;
+      background: rgba(76, 175, 80, 0.95);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 12px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10001;
+      animation: fadeIn 0.5s ease-in 0.3s both;
+      max-width: 200px;
+      width: min(200px, calc(100vw - 40px));
+      overflow-wrap: anywhere;
+    }
+    
+    .test-credentials-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    
+    .test-credentials-content {
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    
+    .test-credentials code {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      word-break: break-all;
+    }
+    
+    /* Hide instruction on mobile */
+    @media (max-width: 768px) {
+      .scroll-instruction,
+      .test-credentials {
+        display: none;
+      }
+    }
+    
+    /* Prevent text selection and touch issues */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Scroll instruction for desktop users -->
+  <div class="scroll-instruction">
+    <span class="scroll-instruction-icon"></span>
+    <span>Use scroll wheel or trackpad to navigate (not drag)</span>
+  </div>
+  
+  <!-- Test credentials notice -->
+  <div class="test-credentials">
+    <div class="test-credentials-title">
+      <span>Demo Login</span>
+    </div>
+    <div class="test-credentials-content">
+      <strong>Email:</strong> <code>joonseokkang0531@gmail.com</code><br>
+      <strong>Password:</strong> <code>yorigo2025</code><br>
+      <br>
+      <em>This account has prototype videos already parsed. Check the Recipes tab!</em>
+    </div>
+  </div>
+  
+  <div class="loading">로딩 중...</div>
+  <script src="flutter_bootstrap.js" async></script>
+  
+  <script>
+    // Hide loading screen after Flutter initializes
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const loading = document.querySelector('.loading');
+        if (loading) {
+          loading.style.display = 'none';
+        }
+      }, 2000);
+    });
+    
+    // Prevent zoom on double tap
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+    
+    // Prevent context menu on long press
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Railway: API-only image. Coupang/Kurly scraping & Selenium cookie tools run on local backend only.
+# Firestore 상품 조회는 coupang_service / kurly_products_read (셀레니움 미로드).
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart>=0.0.9
+python-dotenv==1.0.1
+yt-dlp[default]>=2025.1.1
+curl-cffi>=0.6.0
+faster-whisper>=1.2.1
+rapidfuzz>=3.10.1
+openai==1.54.3
+google-genai>=1.70.0
+httpx>=0.28.1,<1
+pydantic>=2.9.2,<3
+cryptography>=43.0.0
+requests==2.32.3
+pillow>=10.4.0
+numpy>=1.26.4,<2.0; python_version < "3.14"
+numpy>=2.3.3; python_version >= "3.14"
+beautifulsoup4==4.12.3
+lxml>=5.1.0
+firebase-admin==6.5.0
+apify-client>=1.8.0  # Instagram Step1 (apify/instagram-reel-scraper); yt-dlp cookieless fallback
+# RapidOCR: uses the same PP-OCR models via ONNX Runtime instead of PaddlePaddle.
+# Avoids the PaddlePaddle segfault (exit code 139) that affects Docker builds.
+rapidocr>=3.8.0,<3.9.0
+onnxruntime>=1.17.0

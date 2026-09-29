@@ -1,0 +1,8 @@
+{
+  "USE_MACMINI_PARSING": "true",
+  "KAKAO_NATIVE_APP_KEY": "paste_native_app_key_from_kakao_developers",
+  "KAKAO_JAVASCRIPT_APP_KEY": "paste_javascript_key_if_you_use_web",
+  "KAKAO_REST_API_KEY": "paste_rest_api_key",
+  "MIXPANEL_PROJECT_TOKEN": "",
+  "MIXPANEL_SERVER_URL": ""
+}

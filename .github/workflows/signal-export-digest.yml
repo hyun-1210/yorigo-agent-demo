@@ -1,0 +1,99 @@
+# Signal export 결과 일일/주기 다이제스트 (Resend 메일).
+# Railway 스케줄러가 Firestore system_schedules/signal_export.lastRun 에
+# 요약을 남기면, 이 워크플로가 기존 RESEND_* 시크릿으로 메일을 보낸다.
+#
+# 매시간 확인하되 lastNotifiedRunId 로 중복 발송을 막는다
+# (= 스케줄러가 돌 때마다 1통, Railway에 Resend 키 불필요).
+#
+# Required secrets:
+#   FIREBASE_SERVICE_ACCOUNT_JSON
+#   RESEND_API_KEY
+#   ALERT_EMAIL_TO
+# Optional:
+#   ALERT_EMAIL_FROM  (default: Signal Export <noreply@alerts.yorigo.kr>)
+name: Signal Export Digest
+
+on:
+  schedule:
+    - cron: "15 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "이미 통지한 runId도 재발송"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    name: Read lastRun and email
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-cloud-firestore google-auth
+
+      - name: Write Firebase SA
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON secret is empty"
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > backend/firebase-service-account.json
+
+      # backend 유닛테스트는 services/utils __init__ 의존성 체인이 커서
+      # digest 워크플로에서는 제외한다. (로컬/별도 CI에서 실행)
+
+      - name: Send digest email
+        id: digest
+        continue-on-error: true
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+        working-directory: analytics
+        run: |
+          set +e
+          FORCE_FLAG=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            FORCE_FLAG="--force"
+          fi
+          python signal_export_digest.py \
+            --sa ../backend/firebase-service-account.json \
+            $FORCE_FLAG
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # 0=ok/skip, 3=아직 lastRun 없음(스케줄러 대기) → 잡 실패로 치지 않음
+          # 20=lastRun ok=false → 아래 스텝에서 실패 처리
+          exit 0
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: signal-export-digest-${{ github.run_id }}
+          path: analytics/reports/signal_export/
+          if-no-files-found: warn
+
+      - name: Fail job when export lastRun is not ok
+        if: steps.digest.outputs.exit_code == '20'
+        run: |
+          echo "Signal export lastRun reported failure/partial_failure"
+          exit 1

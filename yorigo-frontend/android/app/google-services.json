@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "85948114976",
+    "project_id": "codegate-f21f6",
+    "storage_bucket": "codegate-f21f6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85948114976:android:02a1ca994c4db7b04c7445",
+        "android_client_info": {
+          "package_name": "com.yorigo.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDimEFQQZ4FJdhYFBWtZWx_tqejaTimAiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

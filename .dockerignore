@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+# NOTE: Do NOT ignore backend/Scripts/ here.
+# On Windows the scripts/ folder is case-insensitive; ignoring Scripts/
+# also drops backend/scripts/*.py from the Railway build context.
+backend/Lib/
+backend/pyvenv.cfg
+backend/Scripts/Activate.ps1
+backend/Scripts/activate
+backend/Scripts/activate.bat
+backend/Scripts/deactivate.bat
+backend/Scripts/pip.exe
+backend/Scripts/pip3.exe
+backend/Scripts/python.exe
+backend/Scripts/pythonw.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Windows executables (not needed in Linux container)
+*.exe
+*.cmd
+*.bat
+
+# Scripts directory - exclude all except Python files
+backend/scripts/*.exe
+backend/scripts/__pycache__/
+backend/scripts/*.cmd
+backend/scripts/*.ini
+backend/scripts/*.pyc
+
+# Firebase service account (should be in environment variables)
+backend/firebase-service-account.json
+
+# Frontend
+yorigo-frontend/
+frontend/
+
+# Test files
+*_test.py
+test_*.py
+tests/
+
+# Documentation
+*.md
+DOCUMENTATION.md
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+

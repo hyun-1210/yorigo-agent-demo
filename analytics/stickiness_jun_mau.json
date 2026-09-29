@@ -1,0 +1,18 @@
+﻿{
+  "events": [
+    "yorigo_active_user",
+    "screen_view"
+  ],
+  "from_date": "2026-06-01",
+  "to_date": "2026-06-27",
+  "unit": "month",
+  "type": "unique",
+  "series": {
+    "yorigo_active_user": {
+      "2026-06-01": 1725
+    },
+    "screen_view": {
+      "2026-06-01": 5763
+    }
+  }
+}

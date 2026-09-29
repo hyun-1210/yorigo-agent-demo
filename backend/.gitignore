@@ -1,0 +1,5 @@
+./.env
+firebase-service-account.json
+youtube_cookies*.txt
+*.description
+recommendation_context.json

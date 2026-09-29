@@ -1,0 +1,10 @@
+node_modules/
+
+# (선택) Flutter/Node 빌드 산출물/캐시가 섞일 때 대비
+.cache/
+.DS_Store
+
+# Cloud Functions 환경변수 파일 — 절대 커밋 금지 (API 키 포함)
+.env
+.env.*
+

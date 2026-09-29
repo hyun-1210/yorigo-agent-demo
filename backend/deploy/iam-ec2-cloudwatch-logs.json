@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "YorigoBackendDockerLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": [
+        "arn:aws:logs:ap-northeast-2:839922332232:log-group:/yorigo/backend",
+        "arn:aws:logs:ap-northeast-2:839922332232:log-group:/yorigo/backend:*"
+      ]
+    }
+  ]
+}

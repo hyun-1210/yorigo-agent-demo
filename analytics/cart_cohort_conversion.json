@@ -1,0 +1,323 @@
+{
+  "generated_at": "2026-06-27",
+  "from_date": "2026-05-01",
+  "to_date": "2026-06-27",
+  "weekly_unique_users": {
+    "sign_up": {
+      "2026-06-22": 338,
+      "2026-04-27": 1,
+      "2026-05-04": 94,
+      "2026-05-11": 30,
+      "2026-05-18": 26,
+      "2026-05-25": 892,
+      "2026-06-01": 168,
+      "2026-06-08": 117,
+      "2026-06-15": 607
+    },
+    "recipe_cart_add_footer_clicked": {
+      "2026-06-22": 49,
+      "2026-04-27": 0,
+      "2026-05-04": 0,
+      "2026-05-11": 0,
+      "2026-05-18": 0,
+      "2026-05-25": 0,
+      "2026-06-01": 4,
+      "2026-06-08": 33,
+      "2026-06-15": 61
+    },
+    "recipe_ingredient_add_clicked": {
+      "2026-06-22": 44,
+      "2026-04-27": 0,
+      "2026-05-04": 0,
+      "2026-05-11": 0,
+      "2026-05-18": 0,
+      "2026-05-25": 0,
+      "2026-06-01": 4,
+      "2026-06-08": 23,
+      "2026-06-15": 67
+    },
+    "cart_purchase_completed": {
+      "2026-06-22": 1,
+      "2026-04-27": 1,
+      "2026-05-04": 5,
+      "2026-05-11": 3,
+      "2026-05-18": 2,
+      "2026-05-25": 5,
+      "2026-06-01": 3,
+      "2026-06-08": 0,
+      "2026-06-15": 3
+    },
+    "ingredient_purchase_checked": {
+      "2026-06-22": 86,
+      "2026-04-27": 3,
+      "2026-05-04": 15,
+      "2026-05-11": 8,
+      "2026-05-18": 6,
+      "2026-05-25": 215,
+      "2026-06-01": 139,
+      "2026-06-08": 58,
+      "2026-06-15": 257
+    },
+    "cart_majority_checked": {
+      "2026-06-22": 5,
+      "2026-04-27": 0,
+      "2026-05-04": 0,
+      "2026-05-11": 0,
+      "2026-05-18": 0,
+      "2026-05-25": 0,
+      "2026-06-01": 2,
+      "2026-06-08": 5,
+      "2026-06-15": 7
+    }
+  },
+  "cohort_signup_to_cart_footer_click_w0": [
+    {
+      "cohort_week": "2026-04-27",
+      "cohort_size": 1,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-04",
+      "cohort_size": 94,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-11",
+      "cohort_size": 30,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-18",
+      "cohort_size": 26,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-25",
+      "cohort_size": 892,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-01",
+      "cohort_size": 168,
+      "converted_users": 2,
+      "rate_pct": 1.19
+    },
+    {
+      "cohort_week": "2026-06-08",
+      "cohort_size": 117,
+      "converted_users": 11,
+      "rate_pct": 9.4
+    },
+    {
+      "cohort_week": "2026-06-15",
+      "cohort_size": 607,
+      "converted_users": 42,
+      "rate_pct": 6.92
+    },
+    {
+      "cohort_week": "2026-06-22",
+      "cohort_size": 338,
+      "converted_users": 27,
+      "rate_pct": 7.99
+    }
+  ],
+  "cohort_signup_to_ingredient_add_click_w0": [
+    {
+      "cohort_week": "2026-04-27",
+      "cohort_size": 1,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-04",
+      "cohort_size": 94,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-11",
+      "cohort_size": 30,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-18",
+      "cohort_size": 26,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-25",
+      "cohort_size": 892,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-01",
+      "cohort_size": 168,
+      "converted_users": 2,
+      "rate_pct": 1.19
+    },
+    {
+      "cohort_week": "2026-06-08",
+      "cohort_size": 117,
+      "converted_users": 9,
+      "rate_pct": 7.69
+    },
+    {
+      "cohort_week": "2026-06-15",
+      "cohort_size": 607,
+      "converted_users": 50,
+      "rate_pct": 8.24
+    },
+    {
+      "cohort_week": "2026-06-22",
+      "cohort_size": 338,
+      "converted_users": 22,
+      "rate_pct": 6.51
+    }
+  ],
+  "cohort_signup_to_purchase_w0": [
+    {
+      "cohort_week": "2026-04-27",
+      "cohort_size": 1,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-04",
+      "cohort_size": 94,
+      "converted_users": 3,
+      "rate_pct": 3.19
+    },
+    {
+      "cohort_week": "2026-05-11",
+      "cohort_size": 30,
+      "converted_users": 2,
+      "rate_pct": 6.67
+    },
+    {
+      "cohort_week": "2026-05-18",
+      "cohort_size": 26,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-25",
+      "cohort_size": 892,
+      "converted_users": 3,
+      "rate_pct": 0.34
+    },
+    {
+      "cohort_week": "2026-06-01",
+      "cohort_size": 168,
+      "converted_users": 1,
+      "rate_pct": 0.6
+    },
+    {
+      "cohort_week": "2026-06-08",
+      "cohort_size": 117,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-15",
+      "cohort_size": 607,
+      "converted_users": 3,
+      "rate_pct": 0.49
+    },
+    {
+      "cohort_week": "2026-06-22",
+      "cohort_size": 338,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    }
+  ],
+  "cohort_signup_to_ingredient_checked_w0": [
+    {
+      "cohort_week": "2026-04-27",
+      "cohort_size": 1,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-05-04",
+      "cohort_size": 94,
+      "converted_users": 9,
+      "rate_pct": 9.57
+    },
+    {
+      "cohort_week": "2026-05-11",
+      "cohort_size": 30,
+      "converted_users": 2,
+      "rate_pct": 6.67
+    },
+    {
+      "cohort_week": "2026-05-18",
+      "cohort_size": 26,
+      "converted_users": 2,
+      "rate_pct": 7.69
+    },
+    {
+      "cohort_week": "2026-05-25",
+      "cohort_size": 892,
+      "converted_users": 241,
+      "rate_pct": 27.02
+    },
+    {
+      "cohort_week": "2026-06-01",
+      "cohort_size": 168,
+      "converted_users": 81,
+      "rate_pct": 48.21
+    },
+    {
+      "cohort_week": "2026-06-08",
+      "cohort_size": 117,
+      "converted_users": 39,
+      "rate_pct": 33.33
+    },
+    {
+      "cohort_week": "2026-06-15",
+      "cohort_size": 607,
+      "converted_users": 241,
+      "rate_pct": 39.7
+    },
+    {
+      "cohort_week": "2026-06-22",
+      "cohort_size": 338,
+      "converted_users": 64,
+      "rate_pct": 18.93
+    }
+  ],
+  "cohort_cart_add_to_purchase_w0": [
+    {
+      "cohort_week": "2026-06-01",
+      "cohort_size": 4,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-08",
+      "cohort_size": 33,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-15",
+      "cohort_size": 61,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    },
+    {
+      "cohort_week": "2026-06-22",
+      "cohort_size": 49,
+      "converted_users": 0,
+      "rate_pct": 0.0
+    }
+  ]
+}

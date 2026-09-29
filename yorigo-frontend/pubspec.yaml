@@ -1,0 +1,284 @@
+name: yorigo
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+139
+
+environment:
+  sdk: ^3.10.0
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  http: ^1.2.0
+  # iOS 파싱 전용 — URLSession(Cupertino). Android 는 기본 http.Client 유지.
+  cupertino_http: ^2.0.2
+  
+  # Firebase
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.6.12
+  firebase_storage: ^12.3.7
+  firebase_messaging: ^15.2.5
+  firebase_analytics: ^11.3.3
+  firebase_crashlytics: ^4.3.5
+  flutter_local_notifications: ^17.2.3
+  
+  # Social Sign-In
+  google_sign_in: ^6.2.2
+  sign_in_with_apple: ^6.1.3
+  kakao_flutter_sdk: ^1.10.0
+
+  # Device frame for web demo
+  device_frame: ^1.2.0
+
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  shared_preferences: ^2.3.0
+  url_launcher: ^6.3.1
+  flutter_svg: ^2.0.17
+  app_settings: ^5.1.1
+  webview_flutter: ^4.13.1
+  
+  # Image picking
+  image_picker: ^1.1.2
+  path: ^1.9.0
+
+  # Network image cache + resize (faster load, less memory)
+  cached_network_image: ^3.4.1
+
+  # Client-side image resize before upload (Method B)
+  image: ^4.5.0
+  
+  # YouTube player (official IFrame Player API wrapper)
+  youtube_player_iframe: ^5.2.2
+
+  # Figma-matching fonts (used in temp screen; Caveat, Inter)
+  google_fonts: ^6.2.1
+  share_plus: ^12.0.2
+  image_cropper: ^12.2.1
+  mixpanel_flutter: ^2.6.2
+  in_app_update: ^4.2.5
+  package_info_plus: ^8.3.1
+  visibility_detector: ^0.4.0+2
+  uuid: ^4.5.1
+  speech_to_text: 7.3.0
+  webview_flutter_android: ^4.12.0
+  webview_flutter_wkwebview: ^3.25.1
+  lottie: ^3.3.3
+  flutter_riverpod: ^3.3.2
+  cloud_functions: ^5.6.2
+  # cached_network_image is already declared above
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^5.0.0
+  change_app_package_name: ^1.5.0
+  flutter_launcher_icons: ^0.14.3
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  config:
+    enable-swift-package-manager: false
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/default_profile_avatar.png
+    - assets/mock_profile_bg.png
+    - assets/profile_preview.png
+    - assets/community_preview.png
+    - assets/cart_preview.png
+    - assets/fridge_preview.png
+    - assets/Yorigo_icon_dark.png
+    - assets/Yorigo_icon_light.png
+    - assets/yorigo_icon_gray.png
+    - assets/yorigo_icon_orange.png
+    - assets/images/onboarding_ladle.png
+    - assets/images/onboarding_home_guide.jpg
+    - assets/images/onboarding_save_shorts.png
+    - assets/images/onboarding_save_share.png
+    - assets/images/onboarding_save_recipe.png
+    - assets/images/onboarding_home_feed.png
+    - assets/images/onboarding_home_fridge.png
+    - assets/images/onboarding_book_list.png
+    - assets/images/onboarding_book_plan.png
+    - assets/images/onboarding_shop_cart.png
+    - assets/images/onboarding_shop_recipe.png
+    - assets/images/onboarding_shop_pick.png
+    - assets/images/recipebook_3d_icon.png
+    - assets/images/recipebook_open_3d_icon.png
+    - assets/images/fridge_recommend_3d.png
+    - assets/images/question_3d.png
+    - assets/images/meal_kit_hero.png
+    - assets/images/home_poster_1.png
+    - assets/images/home_poster_2.png
+    - assets/images/home_poster_3.png
+    - assets/yorigo_logo_text.png
+    - assets/yorigo_logo_text_orange.png
+    - assets/yorigo_wordmark.png
+    - assets/yorigo_korean_logo.png
+    - assets/parsing_pan_hero.png
+    - assets/yorigo_go_logo.png
+    - assets/yorigo_help_logo.png
+    - lib/assets/yorigo_logo_text.png
+    - assets/pencil_icon.png
+    - lib/assets/youtube-app-icon-hd.png
+    - lib/assets/instagram-app-icon-hd.png
+    - lib/assets/tiktok-app-icon-hd.png
+    - lib/assets/pencil_icon.png
+    - assets/marketplace/coupang_logo.png
+    - assets/marketplace/coupang_app_logo.png
+    - assets/marketplace/coupang_app_icon.png
+    - assets/marketplace/marketkurly_logo.png
+    - assets/marketplace/kurly_app_icon.png
+    - assets/marketplace/oasis_logo.png
+    - assets/ssg_logo.png
+    - assets/emart_logo.png
+    - assets/icons/nav_home.png
+    - assets/icons/nav_community.png
+    - assets/icons/nav_cart.png
+    - assets/icons/nav_fridge.png
+    - assets/icons/nav_profile.png
+    - assets/icons/feed_heart.png
+    - assets/icons/feed_chatbubble.png
+    - assets/icons/feed_share.png
+    - assets/icons/feed_bookmark.png
+    - assets/icons/kakaotalk_icon.png
+    - assets/icons/google_g.png
+    - assets/icons/review_star_empty.png
+    - assets/icons/review_star_filled.png
+    - assets/icons/caution_estimated.png
+    - assets/icons/community_lock.png
+    - assets/icons/trash_icon.png
+    - assets/icons/yorigo_logo_orange.png
+    - assets/icons/yorigo_app_icon.png
+    - assets/icons/link_icon.png
+    - assets/icons/streak_flame.png
+    - assets/icons/streak_flame_3d.png
+    - assets/icons/streak_cook_3d.png
+    - assets/icons/streak_main_3d.png
+    - assets/icons/streak_ice_3d.png
+    - assets/icons/feedback_kakao_bubble.svg
+    - assets/icons/feedback_mail_envelope.svg
+    - assets/icons/feedback_anonymity_lock.svg
+    - assets/icons/feedback_sheet_close.svg
+    - assets/icons/nav_recipebook.svg
+    - assets/icons/naver_blog_placeholder.png
+    - assets/icons/naver_blog_chip.png
+    - assets/icons/naver_blog_icon.png
+    - assets/google_login_button.png
+    - assets/lottie/parsing_loader.json
+    - assets/data/chef_tags_ko.json
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # Custom fonts (NanumSquareRound removed: font files missing under lib/assets/font/; theme uses Pretendard)
+  fonts:
+    # Inter from your zip: 18pt static + variable font (for weight 100–1000)
+    - family: Inter
+      fonts:
+        - asset: lib/assets/font/Inter/Inter_18pt-Regular.ttf
+          weight: 400
+        - asset: lib/assets/font/Inter/Inter_18pt-Medium.ttf
+          weight: 500
+        - asset: lib/assets/font/Inter/Inter_18pt-SemiBold.ttf
+          weight: 600
+        - asset: lib/assets/font/Inter/Inter_18pt-Bold.ttf
+          weight: 700
+        - asset: lib/assets/font/Inter/Inter_18pt-ExtraBold.ttf
+          weight: 800
+        - asset: lib/assets/font/Inter/Inter_18pt-Black.ttf
+          weight: 900
+        # Variable font: allows FontVariation('wght', 1000) for heavier-than-Black
+        - asset: lib/assets/font/Inter/Inter-VariableFont_opsz,wght.ttf
+          weight: 400
+    # Pretendard: use wherever Figma specifies Inter (temp screen and Figma-derived UI)
+    - family: Pretendard
+      fonts:
+        - asset: lib/assets/font/Pretendard/Pretendard-Thin.otf
+          weight: 100
+        - asset: lib/assets/font/Pretendard/Pretendard-ExtraLight.otf
+          weight: 200
+        - asset: lib/assets/font/Pretendard/Pretendard-Light.otf
+          weight: 300
+        - asset: lib/assets/font/Pretendard/Pretendard-Regular.otf
+          weight: 400
+        - asset: lib/assets/font/Pretendard/Pretendard-Medium.otf
+          weight: 500
+        - asset: lib/assets/font/Pretendard/Pretendard-SemiBold.otf
+          weight: 600
+        - asset: lib/assets/font/Pretendard/Pretendard-Bold.otf
+          weight: 700
+        - asset: lib/assets/font/Pretendard/Pretendard-ExtraBold.otf
+          weight: 800
+        - asset: lib/assets/font/Pretendard/Pretendard-Black.otf
+          weight: 900
+    - family: Caveat
+      fonts:
+        - asset: lib/assets/font/Caveat/Caveat-Bold.ttf
+          weight: 700
+    # 학교안심 사물함 — recipe title display (kept for A/B)
+    - family: HakgyoansimSamulham
+      fonts:
+        - asset: lib/assets/font/HakgyoansimSamulham/HakgyoansimSamulhamOTFR.otf
+          weight: 400
+        - asset: lib/assets/font/HakgyoansimSamulham/HakgyoansimSamulhamR.ttf
+          weight: 400
+    # 학교안심 지우개 — active recipe title display
+    - family: HakgyoansimJiugae
+      fonts:
+        - asset: lib/assets/font/HakgyoansimJiugae/HakgyoansimJiugaeOTFR.otf
+          weight: 400
+        - asset: lib/assets/font/HakgyoansimJiugae/HakgyoansimJiugaeR.ttf
+          weight: 400
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/Yorigo_logo_new.png
+  remove_alpha_ios: true

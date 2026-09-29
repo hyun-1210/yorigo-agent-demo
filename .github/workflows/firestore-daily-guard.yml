@@ -1,0 +1,87 @@
+# Daily Firestore analysis digest (email only — no auto-fix / deploy).
+# Schedule: 00:00 UTC = 09:00 KST
+#
+# Required secrets:
+#   FIREBASE_SERVICE_ACCOUNT_JSON
+#   RESEND_API_KEY
+#   ALERT_EMAIL_TO
+# Optional:
+#   ALERT_EMAIL_FROM  (default uses Resend onboarding sender)
+name: Firestore Daily Guard
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    name: Analyze and email digest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-cloud-monitoring google-auth requests
+
+      - name: Write Firebase SA
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON secret is empty"
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > backend/firebase-service-account.json
+
+      - name: Unit tests (guard rules)
+        working-directory: analytics
+        run: python -m unittest test_firestore_daily_guard.py -v
+
+      - name: Run daily guard
+        id: guard
+        working-directory: analytics
+        continue-on-error: true
+        run: |
+          set +e
+          python firestore_daily_guard.py --sa ../backend/firebase-service-account.json
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # Locate newest report dir
+          REPORT_DIR=$(ls -1d reports/*/ 2>/dev/null | sort | tail -n 1)
+          if [ -z "$REPORT_DIR" ]; then
+            echo "No report directory produced"
+            exit 1
+          fi
+          echo "report_dir=$REPORT_DIR" >> "$GITHUB_OUTPUT"
+          echo "Guard finished with code=$code report_dir=$REPORT_DIR"
+          exit 0
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firestore-daily-guard-${{ github.run_id }}
+          path: analytics/reports/
+          if-no-files-found: warn
+
+      - name: Email digest
+        if: steps.guard.outputs.report_dir != ''
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+        working-directory: analytics
+        run: |
+          python send_firestore_guard_email.py --report-dir "${{ steps.guard.outputs.report_dir }}"

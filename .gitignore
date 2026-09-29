@@ -1,0 +1,143 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+/yorigo/
+
+# Local ffmpeg binary (맥미니 전용 macOS arm64 바이너리 — 커밋 금지, Railway/AWS는 Linux)
+backend/bin/
+
+# Environment Variables
+.env
+.env.local
+*.env
+backend/.env
+backend/.env.*
+
+# AI model benchmarking (contains API keys / service accounts)
+backend/ai_benchmarking/
+
+# YouTube Cookies (sensitive!)
+youtube_cookies.txt
+youtube_cookies_b64.txt
+*cookies*.txt
+backend/kurly_cookies.json
+backend/scripts/seed_aa_personal_data.py
+backend/cookie_source_meta.json
+.cursor/mcp.json
+
+# Temporary files
+*.tmp
+*.log
+temp/
+tmp/
+*.description
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backend specific
+backend/__pycache__/
+backend/yorigo/
+backend/*.pyc
+backend/firebase.json
+backend/firebase-service-account.json
+backend/*-firebase-adminsdk-*.json
+backend/*service-account*.json
+backend/Lib/
+# NOTE: Do NOT ignore backend/Scripts/ wholesale.
+# On Windows (case-insensitive), Scripts/ == scripts/ and would drop
+# backend/scripts/*.py from Railway upload snapshots. Ignore venv bits only.
+backend/Scripts/Activate.ps1
+backend/Scripts/activate
+backend/Scripts/activate.bat
+backend/Scripts/deactivate.bat
+backend/Scripts/pip.exe
+backend/Scripts/pip3.exe
+backend/Scripts/python.exe
+backend/Scripts/pythonw.exe
+backend/share/
+backend/.venv/
+# backend/requirements.txt  # 주석 처리: Railway 빌드에 필요
+
+# scripts 디렉터리의 비-파이썬 산출물만 제외
+backend/scripts/*.exe
+backend/scripts/*.cmd
+backend/scripts/*.ini
+backend/scripts/_bakeoff_tag_tagline.json
+backend/scripts/_backfill_tags_checkpoint.json
+
+# Flutter local build defines (Kakao, Mixpanel, etc. — use dart_define.local.json.example)
+yorigo-frontend/dart_define.local.json
+
+# Firestore daily guard local reports
+analytics/reports/
+
+# Railway watch local reports
+ops/railway_watch/reports/
+
+# Offsite backup local workdir
+ops/backup/work/
+
+# Frontend specific (Flutter)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Local merge backups & deploy/device validation (not product code)
+.merge_backup_*/
+deploy_validation_logs/
+pr124_validation_logs/
+device_flutter_log.txt
+pptx_dump.txt
+
+# Pipeline QA run outputs
+backend/Scripts/pipeline_qa/results/
+
+# Analytics / ops one-off exports (scripts in analytics/ remain tracked)
+analytics/firestore_insights_*.json
+analytics/firestore_monitoring_*.json
+analytics/firestore_stats.json
+analytics/firestore_15day_breakdown.json
+analytics/backfill_ts_run_*.json
+analytics/*_snapshot.json
+analytics/ts_worker_*.txt
+analytics/railway_*.txt
+analytics/_railway_*.txt
+analytics/_streak_*.txt
+analytics/gcp_*.json
+analytics/mixpanel_all_llm*.json
+analytics/mixpanel_daily_llm*.json
+analytics/mynormal_poster_brandconnect.json
+analytics/poster_keyword_coverage.json
+analytics/recommend_latency_probe.json
+analytics/railway_deploys.json
+analytics/railway_status*.json
+analytics/_fridge_receipt_*.json
+analytics/yorigo_*.pdf
+
+# Unrelated one-off assets
+retreat-stamp-card-5x6/
+

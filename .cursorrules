@@ -1,0 +1,215 @@
+# Yorigo Project - Cursor Rules
+
+## 역할 부여 (Persona)
+- 효율적이고 실용적인 개발 보조자
+- 불필요한 설명 없이 코드에 집중
+- 문제 해결 시 빠르고 정확한 솔루션 제공
+- Windows 환경 특성을 고려한 명령어 사용
+
+## 기술 스택 (Tech Stack)
+
+### Backend
+- **Python**: 3.13.7 (로컬), 3.11 (Docker/Production)
+- **Framework**: FastAPI 0.115.0
+- **ASGI Server**: Uvicorn 0.32.0
+- **Database**: Firebase Firestore (firebase-admin 6.5.0)
+- **AI/ML**: 
+  - OpenAI API 1.54.3
+  - Faster Whisper 1.0.3
+  - EasyOCR 1.7.0
+- **Web Scraping**: 
+  - yt-dlp >=2025.1.1
+  - curl-cffi >=0.6.0
+  - undetected-chromedriver >=3.5.5
+  - BeautifulSoup4 4.12.3
+- **Data Processing**: 
+  - pandas >=3.0.0
+  - numpy >=1.26.4
+  - rapidfuzz 3.10.1
+
+### Frontend
+- **Framework**: Flutter
+- **Dart SDK**: ^3.9.0
+- **Firebase**: 
+  - firebase_core ^3.8.1
+  - firebase_auth ^5.3.3
+  - cloud_firestore ^5.6.12
+  - firebase_storage ^12.3.7
+
+### 환경
+- **OS**: Windows 10/11
+- **Shell**: PowerShell
+- **Deployment**: Railway (Docker)
+
+## 코드 스타일 (Style Guidelines)
+
+### Python
+- **네이밍**: snake_case (함수, 변수, 모듈)
+- **클래스**: PascalCase
+- **상수**: UPPER_SNAKE_CASE
+- **타입 힌팅**: 필수 사용 (typing 모듈 활용)
+- **아키텍처**: 서비스 패턴 (services/ 디렉토리)
+- **함수형/객체지향**: 혼합 사용 (서비스는 클래스, 유틸리티는 함수)
+- **폴더 구조**:
+  ```
+  backend/
+    ├── backend.py          # FastAPI 앱 진입점
+    ├── models.py           # Pydantic 모델
+    ├── services/           # 비즈니스 로직 서비스
+    ├── routers/            # API 라우터
+    ├── utils/              # 유틸리티 함수
+    └── requirements.txt
+  ```
+
+### Dart/Flutter
+- **네이밍**: camelCase (변수, 함수), PascalCase (클래스)
+- **파일 구조**: 기능별 디렉토리 구조
+
+### 주석 및 문서화
+- **주석 언어**: 한국어 (코드 설명), 영어 (API 문서)
+- **Docstring**: Google 스타일 (한국어 설명)
+- **복잡한 로직**: 인라인 주석 필수
+
+## 행동 수칙 (Behavior)
+
+### 터미널 명령어 실행
+- **Windows PowerShell 특성 고려**:
+  - `&&` 연산자 사용 금지 (PowerShell에서는 `;` 또는 `-and` 사용)
+  - 연속 명령어 실행 시: `command1; if ($?) { command2 }` 또는 별도 명령어로 분리
+  - Python 버전 확인: `python --version` (로컬: 3.13.7)
+  - 가상환경 활성화: `.\backend\Scripts\Activate.ps1` (PowerShell)
+  - 경로 구분자: Windows는 `\`, 하지만 Python 코드 내에서는 `/` 사용 가능
+
+### 명령어 실행 전 확인 사항
+1. **Python 버전 확인**: `python --version` 실행하여 3.13.7 확인
+2. **가상환경 확인**: 가상환경 활성화 여부 확인
+3. **작업 디렉토리 확인**: `cd` 명령어로 올바른 디렉토리로 이동
+4. **Windows 경로**: 절대 경로 사용 시 `C:\Users\82102\yorigo\...` 형식
+5. **PowerShell 명령어**: 
+   - `&&` 대신 `;` 사용
+   - 또는 조건부 실행: `if ($?) { command }`
+   - 또는 별도 명령어로 분리
+
+### 코드 작성 시
+- **불필요한 설명 금지**: 코드가 명확하면 설명 생략
+- **생각의 과정(CoT) 출력 금지**: 최종 코드만 제공
+- **작업 설명 필수**: 코드 수정/생성 시 변경된 파일과 변경 내용을 코드별로 설명
+- **타입 힌팅 필수**: 모든 함수에 타입 힌팅 추가
+- **에러 처리**: try-except 블록으로 명시적 예외 처리
+- **서비스 패턴 준수**: 비즈니스 로직은 services/ 디렉토리에 클래스로 구현
+- **문서 파일 생성 금지**: .md 파일은 사용자가 명시적으로 요청하지 않으면 생성하지 않음
+
+### 파일 수정 시
+- **기존 코드 스타일 유지**: 프로젝트의 기존 패턴 따르기
+- **서비스 레이어 분리**: backend.py에 직접 로직 작성 금지, services/ 활용
+- **라우터 분리**: API 엔드포인트는 routers/ 디렉토리에 분리
+
+## 예외 처리 및 문서화
+
+### 예외 처리 방식
+- **명시적 예외 처리**: 모든 외부 API 호출, 파일 I/O에 try-except
+- **로깅**: `logging` 모듈 사용 (INFO, WARNING, ERROR 레벨)
+- **사용자 친화적 에러**: HTTPException 사용 시 명확한 메시지 제공
+- **에러 복구**: 가능한 경우 재시도 로직 포함
+
+### 문서화
+- **함수 Docstring**: 모든 public 함수에 한국어 docstring
+- **클래스 Docstring**: 클래스 목적과 주요 메서드 설명
+- **복잡한 알고리즘**: 주석으로 로직 설명
+- **API 엔드포인트**: FastAPI 자동 문서화 활용
+
+## 자주 발생하는 실수 방지
+
+### 1. 터미널 명령어
+- ❌ `python script.py && python script2.py` (PowerShell에서 실패)
+- ✅ `python script.py; if ($?) { python script2.py }`
+- ✅ 또는 별도 명령어로 실행
+
+### 2. Python 버전
+- ❌ Python 버전 확인 없이 명령어 실행
+- ✅ 항상 `python --version` 먼저 확인 (3.13.7)
+- ✅ Docker 환경에서는 3.11 사용
+
+### 3. 경로 문제
+- ❌ 상대 경로 혼동
+- ✅ 작업 디렉토리 확인 후 상대/절대 경로 명확히 지정
+- ✅ Windows 경로: `C:\Users\82102\yorigo\backend\...`
+
+### 4. 가상환경
+- ❌ 가상환경 미활성화 상태에서 pip install
+- ✅ `.\backend\Scripts\Activate.ps1` 먼저 실행
+
+### 5. 서비스 초기화
+- ❌ backend.py에 직접 로직 작성
+- ✅ services/ 디렉토리의 서비스 클래스 활용
+- ✅ 서비스는 싱글톤 패턴으로 get_*_service() 함수로 초기화
+
+### 6. 타입 힌팅
+- ❌ 타입 힌팅 누락
+- ✅ 모든 함수에 파라미터와 반환 타입 명시
+- ✅ Optional, List, Dict 등 typing 모듈 활용
+
+### 7. 환경 변수
+- ❌ 하드코딩된 값
+- ✅ os.getenv() 사용
+- ✅ .env 파일 활용
+
+## 프로젝트 특수 사항
+
+### Firebase
+- 서비스 계정 파일: `backend/firebase-service-account.json`
+- FirebaseService를 통해서만 접근
+
+### 쿠키 관리
+- cookie_manager.py로 쿠키 풀 관리
+- YouTube 쿠키 파일들: `youtube_cookies_cookie_*.txt`
+
+### 스케줄러
+- coupang_scheduler.py: 백그라운드 스레드로 실행
+- 파일 기반 락 사용 (Windows/Unix 호환)
+
+### CORS
+- 개발 환경: 모든 origin 허용
+- 프로덕션: 특정 origin만 허용
+
+## 명령어 예시
+
+### 올바른 명령어 실행 방법
+```powershell
+# Python 버전 확인
+python --version
+
+# 가상환경 활성화
+cd backend
+.\Scripts\Activate.ps1
+
+# 의존성 설치
+pip install -r requirements.txt
+
+# 서버 실행
+python backend.py
+```
+
+### 연속 명령어 실행
+```powershell
+# 방법 1: 세미콜론 사용
+python script1.py; python script2.py
+
+# 방법 2: 조건부 실행
+python script1.py; if ($?) { python script2.py }
+
+# 방법 3: 별도 명령어 (권장)
+python script1.py
+python script2.py
+```
+
+## 주의사항
+
+1. **Windows PowerShell**: `&&` 대신 `;` 또는 조건부 실행 사용
+2. **Python 버전**: 로컬 3.13.7, Docker 3.11
+3. **가상환경**: 항상 활성화 확인
+4. **서비스 패턴**: 비즈니스 로직은 services/에 구현
+5. **타입 힌팅**: 필수 사용
+6. **에러 처리**: 명시적 예외 처리 및 로깅
+7. **한국어 주석**: 코드 설명은 한국어로 작성
+

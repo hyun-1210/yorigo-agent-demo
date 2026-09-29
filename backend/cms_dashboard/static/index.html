@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>요리고 홈 CMS</title>
+  <link rel="stylesheet" href="/static/styles.css?v=4" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>요리고 홈 CMS</h1>
+      <div class="muted" id="metaLine">앱에 어떻게 보이는지 확인하는 화면입니다</div>
+    </div>
+    <div class="actions">
+      <button class="ghost" id="btnRollback">이전 번들 롤백</button>
+    </div>
+  </header>
+  <div class="tabs">
+    <button class="tab active" data-tab="posters">포스터</button>
+    <button class="tab" data-tab="sections">카테고리</button>
+    <button class="tab" data-tab="recipes">레시피 큐레이션</button>
+  </div>
+  <main>
+    <section id="tab-posters">
+      <div class="workspace">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-bar">요리GO · 추천</div>
+            <div id="posterStage"></div>
+          </div>
+        </div>
+        <aside class="side">
+          <div class="card" id="posterPicker"></div>
+          <div class="card" id="posterLiteEdit"></div>
+        </aside>
+      </div>
+    </section>
+    <section id="tab-sections" hidden>
+      <div class="workspace">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-bar">요리GO · 홈 카테고리</div>
+            <div id="homeStage"></div>
+          </div>
+        </div>
+        <aside class="side">
+          <div class="card" id="sectionLiteEdit"></div>
+        </aside>
+      </div>
+    </section>
+    <section id="tab-recipes" hidden>
+      <div class="card">
+        <div class="muted" id="curationHint">포스터 칩이나 홈 카테고리를 누른 뒤 「이 목록 편집」으로 들어와도 됩니다</div>
+        <label>지금 편집하는 목록</label>
+        <select id="curationKey"></select>
+        <div class="actions">
+          <button id="btnLoadIndex">목록 불러오기</button>
+          <button class="ghost" id="btnRebuild">규칙 재빌드 (비용 큼)</button>
+        </div>
+        <label>레시피 제목 또는 ID로 찾아 추가</label>
+        <div class="row tight">
+          <input id="recipeQuery" placeholder="예: 냉면" />
+          <button id="btnSearch">검색 후 추가</button>
+        </div>
+        <div id="searchHits"></div>
+        <h3>현재 목록</h3>
+        <div id="indexList"></div>
+      </div>
+    </section>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+  <script src="/static/app.js?v=4"></script>
+</body>
+</html>

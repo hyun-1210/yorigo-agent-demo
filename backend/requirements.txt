@@ -1,0 +1,39 @@
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart>=0.0.9
+python-dotenv==1.0.1
+yt-dlp>=2025.1.1  # Updated for TikTok impersonation support
+curl-cffi>=0.6.0  # Required for TikTok impersonation (replaces requests for TikTok)
+faster-whisper>=1.2.1  # 1.0.3 pins av<13; no compatible av wheels on Python 3.14
+rapidfuzz>=3.10.1  # 3.10.1 builds from sdist on Python 3.14 and fails metadata; newer releases ship wheels
+openai==1.54.3
+httpx>=0.28.1,<1  # google-genai>=1.70 needs httpx>=0.28.1 (avoid resolver picking old google-genai)
+pydantic>=2.9.2,<3  # allow newer pydantic-core with cp314 wheels
+cryptography>=43.0.0
+requests==2.32.3
+pillow>=10.4.0  # 10.4 has no cp314 wheel; newer releases do
+# pandas 3.x + mixpanel-headless/pyarrow need numpy 2.x (numpy 1.x crashes pyarrow import in backend/yorigo)
+numpy>=2.3.3,<2.5; python_version < "3.14"
+numpy>=2.3.3; python_version >= "3.14"
+beautifulsoup4==4.12.3
+lxml>=5.1.0
+# firebase-admin==6.5.0
+undetected-chromedriver>=3.5.5  # Required for Coupang and Kurly scraping schedulers
+selenium>=4.0.0  # Required for Kurly service (WebDriverWait, EC, By, Keys, etc.)
+pandas>=3.0.0  # Required for Coupang and Kurly scraping services
+openpyxl>=3.1.0  # Required for pandas Excel file operations
+rapidocr>=3.8.0,<3.9.0  # 3.9+ defaults to PP-OCRv6 which lacks Korean rec
+onnxruntime>=1.17.0
+pyperclip>=1.8.2  # Required for clipboard access in Kurly link generation
+instaloader>=4.13  # Instagram reels/video metadata extraction (v1 path only; v2 uses Apify)
+apify-client>=1.8.0  # v2 Instagram ingestion via apify/instagram-reel-scraper (no cookies, true concurrency)
+google-genai>=1.70.0  # Gemini client; keep floor so pip does not downgrade to 1.x that pins old httpx
+
+# Mixpanel Headless SDK — CLI: python -m mixpanel_headless login
+mixpanel-headless>=0.1.1
+pyarrow>=17.0.0,<18.0.0  # mixpanel-headless dep; pin <18 (24.x segfaulted with numpy 1.x in backend/yorigo)
+
+# 시그널 웨어하우스 파이프라인: GCS(signals/raw, signals/processed) 취합은
+# firebase_admin.storage(기존 서비스 계정 재사용)로 처리하므로 별도 google-cloud-storage 불필요.
+# BigQuery 외부 테이블 스키마 생성/갱신에만 사용.
+google-cloud-bigquery>=3.25.0

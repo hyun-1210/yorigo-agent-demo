@@ -1,0 +1,28 @@
+{
+  "terminalAllowlist": [
+    "cd",
+    "dir",
+    "flutter",
+    "dart",
+    "python",
+    "pytest",
+    "git status",
+    "git diff",
+    "git log",
+    "git branch",
+    "git show",
+    "pip list",
+    "pip show"
+  ],
+  "autoRun": {
+    "allow_instructions": [
+      "Local dev checks are fine: flutter/dart analyze, compile, build, and test.",
+      "Running pytest or python test scripts under test/ or scripts/test_*.py is fine.",
+      "Read-only git commands (status, diff, log, branch) are fine."
+    ],
+    "block_instructions": [
+      "Always require approval for firebase deploy, git push, git reset --hard, and pip install.",
+      "Block backend/tools backfill_*, cleanup_*, and any script that writes to production Firestore."
+    ]
+  }
+}

@@ -1,0 +1,1308 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Email-based admin helper function.
+    // Admin email documents are stored at /admin_emails/{email}.
+    // Example doc id: "home102105@snu.ac.kr"
+    function isAdmin() {
+      return isSignedIn() &&
+             request.auth.token.email != null &&
+             request.auth.token.email_verified == true &&
+             exists(/databases/$(database)/documents/admin_emails/$(request.auth.token.email)) &&
+             get(/databases/$(database)/documents/admin_emails/$(request.auth.token.email)).data.active == true;
+    }
+    
+    // Combined admin check (single source of truth: admin_emails)
+    function isAdminUser() {
+      return isAdmin();
+    }
+
+    // Hidden recipe meta (e.g. naver_blog isHidden=true): owner/admin 외에도
+    // savedRecipes 에 붙인 사용자는 get/read 허용 (dedup·상세 메타 조회).
+    // 본문(재료/단계)은 클라 로컬 / users/{uid}/private_recipes — 여기서는 메타만.
+    function hasSavedRecipe(recipeId) {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)/savedRecipes/$(recipeId)) ||
+        (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          recipeId in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('savedRecipes', [])
+        )
+      );
+    }
+
+    function isNaverBlogRecipe(data) {
+      return data.get('source', {}).get('platform', '') == 'naver_blog' ||
+        data.get('sourceKey', '').matches('^naver_blog:.*');
+    }
+
+    function isNaverBlogRecipeCreate() {
+      return isNaverBlogRecipe(request.resource.data);
+    }
+
+    // User cancelled parse (clean — no error payload). Slot may be revived on re-parse.
+    function isCancelledRecipeDoc(data) {
+      return data.get('status', '') == 'cancelled';
+    }
+
+    // Any signed-in user may claim a clean-cancelled doc to restart parsing (URL recycle).
+    function canClaimCancelledRecipeForReparse() {
+      return isSignedIn() &&
+             isCancelledRecipeDoc(resource.data) &&
+             resource.data.get('error', null) == null &&
+             resource.data.get('errorType', null) == null &&
+             !(resource.data.get('hiddenReason', '').matches('duplicate_of:.*')) &&
+             request.resource.data.status == 'parsing' &&
+             request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Read requires authentication
+      // Users can write their own document
+      allow read: if isSignedIn();
+      // Allow creating user document if:
+      // 1. User is creating their own document (mobile app flow), OR
+      // 2. Current user is an admin (admin portal flow - removed, now uses employees collection)
+      allow create: if isOwner(userId);
+      // 리워드(EXP/포인트) 필드는 Cloud Functions/Admin SDK만 지급할 수 있다
+      // (yorigo-frontend/functions/rewards.js, backend/services/rewards_service.py) —
+      // Admin SDK 쓰기는 규칙을 우회하므로 지급 자체는 영향이 없고, 이 조건은
+      // 클라이언트가 직접 잔액을 조작하는 것만 막는 방어선이다.
+      allow update: if isAdminUser() || (
+        isOwner(userId) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(
+          ['expTotal', 'level', 'pointsBalance', 'pointsLifetimeEarned']
+        )
+      ) || (
+        // Allow updating recipeCategories field for any authenticated user (their own document)
+        isSignedIn() && 
+        request.auth.uid == userId &&
+        // Only allow updating recipeCategories and updatedAt fields
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['recipeCategories', 'updatedAt'])
+      );
+      // 사용자 데이터 삭제는 서버(Admin SDK) 통합 삭제 플로우로만 수행.
+      // 클라이언트가 users 문서만 단독 삭제하는 것을 방지하기 위해 관리자만 허용.
+      allow delete: if isAdminUser();
+      
+      // List 쿼리: 관리자 전체 조회, 또는 "한 건만" (예: where handle == + limit(1) 가용성 확인).
+      // 그 외 대량 list 로 프로필 수집하는 것은 막힘(관리자 제외).
+      allow list: if isAdminUser() ||
+        (isSignedIn() && request.query.limit is int && request.query.limit == 1);
+
+      // Meal plans subcollection
+      match /mealPlans/{dateKey} {
+        // Users can read and write their own meal plans
+        allow read, write: if isOwner(userId);
+      }
+
+      // Notification inbox (created by Cloud Functions/Admin SDK)
+      match /notifications/{notificationId} {
+        allow read: if isOwner(userId);
+        allow create: if false; // client create blocked
+        allow update: if isOwner(userId) &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isRead']);
+        allow delete: if isOwner(userId);
+      }
+
+      // FCM tokens per user device
+      match /fcmTokens/{tokenId} {
+        allow read, create, delete: if isOwner(userId);
+        allow update: if isOwner(userId);
+      }
+
+      // 내 챌린지 역인덱스. friend 생성 배치에서만 클라 create.
+      match /challengeMemberships/{challengeId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) &&
+          request.resource.data.kind == 'friend' &&
+          request.resource.data.status == 'joined' &&
+          exists(/databases/$(database)/documents/challenges/$(challengeId)) &&
+          get(/databases/$(database)/documents/challenges/$(challengeId)).data.createdBy == request.auth.uid &&
+          get(/databases/$(database)/documents/challenges/$(challengeId)).data.kind == 'friend';
+        allow update, delete: if false;
+      }
+
+      // Admin push debug request queue (client writes request, Cloud Functions sends after delay)
+      match /pushDebugRequests/{requestId} {
+        allow create: if isOwner(userId) && isAdminUser();
+        allow read, list: if isOwner(userId) && isAdminUser();
+        allow update, delete: if false;
+      }
+
+      // Admin meal reminder test (random recipe + immediate cooking reminder)
+      match /mealReminderTestRequests/{requestId} {
+        allow create: if isOwner(userId) &&
+          isAdminUser() &&
+          request.resource.data.requestedBy == request.auth.uid &&
+          request.resource.data.status == 'queued' &&
+          request.resource.data.mealType in ['breakfast', 'lunch', 'dinner'];
+        allow read, list: if isOwner(userId) && isAdminUser();
+        allow update, delete: if false;
+      }
+
+      // Product check/uncheck analytics event log (legacy). New clients write GCS only.
+      match /product_check_events/{eventId} {
+        allow create: if isOwner(userId) &&
+          request.resource.data.userId == request.auth.uid &&
+          request.resource.data.ingredientName is string &&
+          request.resource.data.ingredientName.size() > 0 &&
+          request.resource.data.marketplace is string &&
+          request.resource.data.checked is bool;
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow update, delete: if false;
+      }
+
+      // Per-user daily-active marks. Avoids querying the shared DAU array docs.
+      match /activeDays/{dayId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      match /activePeriods/{periodId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId);
+        allow delete: if false;
+      }
+
+      // 영수증 스캔 구매 이력 (백엔드 Admin SDK가 생성).
+      // 민감정보(카드번호/전화/사업자번호 등)는 서버에서 걸러진 뒤
+      // 재료·수량·가격·매장명·매장주소(매칭용)·행정구역만 저장된다.
+      // 클라이언트 쓰기는 금지.
+      match /receiptPurchases/{purchaseId} {
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow create, update, delete: if false;
+      }
+
+      // 구매완료 사진인증(온라인 주문확인) — 백엔드 Admin SDK만 기록.
+      match /purchase_verifications/{verificationId} {
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow create, update, delete: if false;
+      }
+
+      // 쿠팡 파트너스 주문 매칭 결과. Admin SDK만 기록.
+      match /coupang_orders/{orderId} {
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow create, update, delete: if false;
+      }
+
+      // 예전 클릭마다 쌓이던 문서. 신규 create는 막는다.
+      match /coupang_link_opens/{openId} {
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow create, update, delete: if false;
+      }
+
+      // 경유 기록: 쿠팡·컬리·네이버 BrandConnect. 하루(KST) 문서 1개.
+      match /coupang_visits/{dayId} {
+        allow read, list: if isOwner(userId) || isAdminUser();
+        allow create, update: if isOwner(userId) &&
+          dayId.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') &&
+          request.resource.data.visits is list;
+        allow delete: if isOwner(userId);
+      }
+
+      // Private recipe bodies (Naver blog 등 외부 출처 정형 본문 보관소).
+      // 메타는 공용 /recipes/{id} 에 저장하되, 어문/이미지 위험을 줄이기 위해
+      // 본문(재료/단계 텍스트)은 본인만 읽을 수 있는 이 서브컬렉션에 분리 저장한다.
+      // 다른 유저에게는 어떤 경로로도 노출되지 않아야 한다.
+      match /private_recipes/{recipeId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Saved recipes denormalization. 본인의 저장 레시피 카드용 미니 데이터
+      // 사본을 보관해서 N+1 read 없이 단일 query 로 목록을 띄운다.
+      // 본인만 read/write 가능.
+      match /savedRecipes/{recipeId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // EXP/포인트 원장 — Cloud Functions/Admin SDK만 기록(claimReward,
+      // claimAttendance, backend/services/rewards_service.py). 클라이언트는
+      // 본인 내역 조회만 가능하고 직접 쓰기는 항상 금지.
+      match /exp_ledger/{entryId} {
+        allow read, list: if isOwner(userId);
+        allow write: if false;
+      }
+      match /points_ledger/{entryId} {
+        allow read, list: if isOwner(userId);
+        allow write: if false;
+      }
+      // 일일/주간 한도 카운터 — 서버 내부 집계용, 클라이언트는 읽을 필요도 없음.
+      match /daily_action_counters/{dayKey} {
+        allow read, write: if false;
+      }
+      match /weekly_point_counters/{weekKey} {
+        allow read, write: if false;
+      }
+    }
+
+    // 핸들 점유 O(1) 조회(문서 id = 핸들). get 만 공개, list 금지.
+    match /user_handles/{handle} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if isSignedIn() &&
+        request.resource.data.keys().hasOnly(['uid']) &&
+        request.resource.data.uid == request.auth.uid;
+      allow update: if isSignedIn() &&
+        resource.data.uid == request.auth.uid &&
+        request.resource.data.keys().hasOnly(['uid']) &&
+        request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+    }
+    
+    // Recipes collection
+    match /recipes/{recipeId} {
+      // Hidden: owner/admin, 또는 savedRecipes 에 붙인 사용자(네이버 dedup·상세 메타).
+      allow read: if resource.data.isHidden != true
+                  || isAdminUser()
+                  || (isSignedIn() && resource.data.userId == request.auth.uid)
+                  || hasSavedRecipe(recipeId);
+      
+      // Only the recipe owner can create or delete
+      allow create: if isSignedIn() &&
+                        request.resource.data.userId == request.auth.uid &&
+                        (
+                          request.resource.data.isHidden == false ||
+                          request.resource.data.isHidden == null ||
+                          (request.resource.data.isHidden == true &&
+                           isNaverBlogRecipeCreate())
+                        );
+      allow delete: if isSignedIn() && (
+        resource.data.userId == request.auth.uid ||
+        isAdminUser()
+      );
+      
+      // Recipe owner can update anything
+      // Anyone signed in can update:
+      // 1. Save tracking fields (saveCount, weeklySaves, monthlySaves, lastSavedAt)
+      // 2. Ingredient categories (for migration purposes - only recipe.ingredients can change)
+      // 3. Thumbnail URLs (for migration to Firebase Storage - thumbnailUrl/thumbnailUrlLarge/thumbnailUrlCropped and updatedAt can change)
+      allow update: if isSignedIn() && (
+        // Owner can update anything
+        resource.data.userId == request.auth.uid ||
+        // Revive clean-cancelled slot for a new parse attempt (URL recycle)
+        canClaimCancelledRecipeForReparse() ||
+        // Admin can only update moderation fields
+        (isAdminUser() &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isHidden', 'hiddenAt', 'hiddenReason', 'updatedAt'])
+        ) ||
+        // Non-owners can update specific fields only
+        (
+          // Critical fields must remain unchanged
+          request.resource.data.userId == resource.data.userId &&
+          request.resource.data.source == resource.data.source &&
+          request.resource.data.nutrition == resource.data.nutrition &&
+          request.resource.data.createdAt == resource.data.createdAt &&
+          // Check if only allowed fields changed
+          (
+            // Case 1: Only save tracking fields changed (recipe structure unchanged)
+            (
+              request.resource.data.recipe == resource.data.recipe &&
+              request.resource.data.categories == resource.data.categories &&
+              request.resource.data.tags == resource.data.tags &&
+              request.resource.data.title == resource.data.title &&
+              request.resource.data.thumbnailUrl == resource.data.thumbnailUrl &&
+              request.resource.data.thumbnailUrlLarge == resource.data.thumbnailUrlLarge &&
+              request.resource.data.thumbnailUrlCropped == resource.data.thumbnailUrlCropped &&
+              request.resource.data.sourceUrl == resource.data.sourceUrl
+            ) ||
+            // Case 2: Only recipe.ingredients changed (for category migration)
+            // Allow if recipe structure exists and ingredients array size is the same
+            (
+              resource.data.recipe != null &&
+              request.resource.data.recipe != null &&
+              resource.data.recipe.keys().hasAll(['ingredients']) &&
+              request.resource.data.recipe.keys().hasAll(['ingredients']) &&
+              resource.data.recipe.ingredients.size() == request.resource.data.recipe.ingredients.size() &&
+              // Ensure other recipe fields haven't changed
+              request.resource.data.recipe.get('name', '') == resource.data.recipe.get('name', '') &&
+              request.resource.data.recipe.get('servings', 0) == resource.data.recipe.get('servings', 0) &&
+              request.resource.data.categories == resource.data.categories &&
+              request.resource.data.tags == resource.data.tags &&
+              request.resource.data.title == resource.data.title &&
+              request.resource.data.thumbnailUrl == resource.data.thumbnailUrl &&
+              request.resource.data.thumbnailUrlLarge == resource.data.thumbnailUrlLarge &&
+              request.resource.data.thumbnailUrlCropped == resource.data.thumbnailUrlCropped &&
+              request.resource.data.sourceUrl == resource.data.sourceUrl
+            ) ||
+            // Case 3: Only thumbnail URL fields and updatedAt changed (for thumbnail migration to Firebase Storage)
+            (
+              request.resource.data.recipe == resource.data.recipe &&
+              request.resource.data.categories == resource.data.categories &&
+              request.resource.data.tags == resource.data.tags &&
+              request.resource.data.title == resource.data.title &&
+              request.resource.data.sourceUrl == resource.data.sourceUrl &&
+              // Only thumbnail URL fields and updatedAt can change
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['thumbnailUrl', 'thumbnailUrlLarge', 'thumbnailUrlCropped', 'updatedAt']) &&
+              // Ensure thumbnail URL fields are Firebase Storage URLs when present
+              (
+                request.resource.data.thumbnailUrl == null ||
+                request.resource.data.thumbnailUrl.matches('.*firebasestorage\\.googleapis\\.com.*')
+              ) &&
+              (
+                request.resource.data.thumbnailUrlLarge == null ||
+                request.resource.data.thumbnailUrlLarge.matches('.*firebasestorage\\.googleapis\\.com.*')
+              ) &&
+              (
+                request.resource.data.thumbnailUrlCropped == null ||
+                request.resource.data.thumbnailUrlCropped.matches('.*firebasestorage\\.googleapis\\.com.*')
+              )
+            ) ||
+            // Case 4: Only review statistics fields changed (for review submission)
+            (
+              request.resource.data.recipe == resource.data.recipe &&
+              request.resource.data.categories == resource.data.categories &&
+              request.resource.data.tags == resource.data.tags &&
+              request.resource.data.title == resource.data.title &&
+              request.resource.data.thumbnailUrl == resource.data.thumbnailUrl &&
+              request.resource.data.thumbnailUrlLarge == resource.data.thumbnailUrlLarge &&
+              request.resource.data.thumbnailUrlCropped == resource.data.thumbnailUrlCropped &&
+              request.resource.data.sourceUrl == resource.data.sourceUrl &&
+              // Only reviewCount, averageRating, lastReviewedAt, and updatedAt can change
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reviewCount', 'averageRating', 'lastReviewedAt', 'updatedAt']) &&
+              // Validate reviewCount is a non-negative integer
+              request.resource.data.reviewCount is int &&
+              request.resource.data.reviewCount >= 0 &&
+              // Validate averageRating is a number between 0 and 5
+              request.resource.data.averageRating is number &&
+              request.resource.data.averageRating >= 0.0 &&
+              request.resource.data.averageRating <= 5.0
+            ) ||
+            // Case 5: Only purchaseOccasionCount changed (for cart purchase tracking)
+            (
+              request.resource.data.diff(resource.data).affectedKeys().hasOnly(['purchaseOccasionCount', 'updatedAt']) &&
+              request.resource.data.purchaseOccasionCount is int &&
+              request.resource.data.purchaseOccasionCount >= 0
+            )
+          )
+        )
+      );
+    }
+    
+    // Reviews collection
+    match /reviews/{reviewId} {
+      // Hidden reviews should not be readable by normal users
+      allow read: if resource.data.isHidden != true || isAdminUser() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      
+      // Only authenticated users can create reviews
+      // Users can only create reviews with their own userId.
+      // Owners may create private (isHidden == true) reviews — "나만 보기".
+      allow create: if isSignedIn() && 
+                     request.resource.data.userId == request.auth.uid;
+      
+      // Users can update/delete their own reviews
+      // OR update likeCount and likedBy (for liking/unliking)
+      // OR update commentCount (for comment management)
+      // OR update reportCount (stats); moderation 필드는 관리자만
+      allow update: if isSignedIn() && (
+        resource.data.userId == request.auth.uid ||
+        // Allow updating only likeCount and likedBy fields for liking
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likeCount', 'likedBy', 'updatedAt']) &&
+         request.resource.data.userId == resource.data.userId &&
+         request.resource.data.recipeId == resource.data.recipeId) ||
+        // Allow updating only commentCount and updatedAt fields for comment management
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['commentCount', 'updatedAt']) &&
+         request.resource.data.userId == resource.data.userId &&
+         request.resource.data.recipeId == resource.data.recipeId) ||
+        // Allow updating reportCount only (for report stats)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reportCount', 'updatedAt']) &&
+         request.resource.data.userId == resource.data.userId &&
+         request.resource.data.recipeId == resource.data.recipeId) ||
+        // Allow admin moderation updates for hidden state
+        (isAdminUser() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isHidden', 'hiddenAt', 'hiddenReason', 'updatedAt']) &&
+         request.resource.data.userId == resource.data.userId &&
+         request.resource.data.recipeId == resource.data.recipeId)
+      );
+      allow delete: if isSignedIn() && (
+        resource.data.userId == request.auth.uid ||
+        isAdminUser()
+      );
+      
+      // Comments subcollection
+      match /comments/{commentId} {
+        // 단건 읽기(get): 본인이 쓴 댓글, 관리자, 또는 부모 리뷰 주인은 숨김 여부와 상관없이 조회 가능.
+        // 그 외에는 숨김이 아닐 때만 조회 가능.
+        allow get: if isSignedIn() &&
+                     (
+                       resource.data.isHidden != true ||
+                       isAdminUser() ||
+                       resource.data.userId == request.auth.uid ||
+                       get(/databases/$(database)/documents/reviews/$(reviewId)).data.userId == request.auth.uid
+                     );
+
+        // 컬렉션 쿼리(list): 관리자 또는 부모 리뷰 주인은 필터 없이도 list 허용
+        // (본인 리뷰 삭제 시 하위 댓글 정리 및 관리자 모더레이션용).
+        // 그 외 일반 유저는 쿼리가 isHidden!=true 를 보장해야 통과.
+        allow list: if isSignedIn() && (
+          isAdminUser() ||
+          get(/databases/$(database)/documents/reviews/$(reviewId)).data.userId == request.auth.uid ||
+          resource.data.isHidden != true
+        );
+        
+        // Only authenticated users can create comments
+        // Users can only create comments with their own userId
+        allow create: if isSignedIn() && 
+                       request.resource.data.userId == request.auth.uid &&
+                       (request.resource.data.isHidden == false ||
+                        request.resource.data.isHidden == null) &&
+                       request.resource.data.text is string &&
+                       request.resource.data.text.size() > 0 &&
+                       request.resource.data.text.size() <= 1000 &&
+                       request.resource.data.commentId is string &&
+                       request.resource.data.likeCount == 0 &&
+                       request.resource.data.likedBy.size() == 0;
+        
+        // Comment owner can update/delete their own comments
+        // OR update likeCount and likedBy (for liking/unliking)
+        // OR update reportCount (stats); moderation 필드는 관리자만
+        allow update: if isSignedIn() && (
+          resource.data.userId == request.auth.uid ||
+          // Allow updating only likeCount and likedBy fields for liking
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likeCount', 'likedBy', 'updatedAt']) &&
+           request.resource.data.userId == resource.data.userId &&
+           request.resource.data.text == resource.data.text &&
+           request.resource.data.commentId == resource.data.commentId) ||
+          // Allow updating only text and updatedAt fields for editing
+          (resource.data.userId == request.auth.uid &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt']) &&
+           request.resource.data.text is string &&
+           request.resource.data.text.size() > 0 &&
+           request.resource.data.text.size() <= 1000 &&
+           request.resource.data.userId == resource.data.userId &&
+           request.resource.data.commentId == resource.data.commentId) ||
+          // Allow updating reportCount only (for report stats)
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reportCount', 'updatedAt']) &&
+           request.resource.data.userId == resource.data.userId &&
+           request.resource.data.text == resource.data.text &&
+           request.resource.data.commentId == resource.data.commentId) ||
+          // Allow admin moderation updates for hidden state
+          (isAdminUser() &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isHidden', 'hiddenAt', 'hiddenReason', 'updatedAt']) &&
+           request.resource.data.userId == resource.data.userId &&
+           request.resource.data.text == resource.data.text &&
+           request.resource.data.commentId == resource.data.commentId)
+        );
+        
+        // Comment owner, parent review owner, or admin can delete comments
+        allow delete: if isSignedIn() && 
+                       (
+                         resource.data.userId == request.auth.uid ||
+                         get(/databases/$(database)/documents/reviews/$(reviewId)).data.userId == request.auth.uid ||
+                         isAdminUser()
+                       );
+      }
+    }
+    
+    // Community board posts (커뮤니티 게시판). Lightweight discussion threads
+    // separate from `reviews` (which are recipe-tied).
+    match /board_posts/{postId} {
+      // Get: hidden posts only visible to author/admin.
+      allow get: if resource.data.isHidden != true ||
+                   isAdminUser() ||
+                   (isSignedIn() && resource.data.authorId == request.auth.uid);
+
+      // List: any signed-in user can query posts.
+      allow list: if isSignedIn();
+
+      // Create: signed-in user posting under their own uid.
+      allow create: if isSignedIn() &&
+                      request.resource.data.authorId == request.auth.uid &&
+                      request.resource.data.title is string &&
+                      request.resource.data.title.size() > 0 &&
+                      request.resource.data.title.size() <= 200 &&
+                      request.resource.data.body is string &&
+                      request.resource.data.body.size() > 0 &&
+                      request.resource.data.body.size() <= 10000 &&
+                      request.resource.data.category is string &&
+                      request.resource.data.likeCount == 0 &&
+                      request.resource.data.commentCount == 0 &&
+                      request.resource.data.viewCount == 0 &&
+                      (request.resource.data.isHidden == false ||
+                       request.resource.data.isHidden == null);
+
+      // Update:
+      //   - Author can edit title/body/category.
+      //   - Anyone signed in can toggle the like (likeCount + likedBy).
+      //   - Anyone signed in can bump viewCount.
+      //   - Anyone signed in can bump commentCount when adding/removing comments.
+      //   - Admin can flip the hidden flag.
+      allow update: if isSignedIn() && (
+        // Author full edit
+        (resource.data.authorId == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+           ['title', 'body', 'category', 'updatedAt']
+         )) ||
+        // Like toggle (anyone)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+          ['likeCount', 'likedBy']
+        )) ||
+        // View bump (anyone)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+          ['viewCount']
+        )) ||
+        // Comment counter bump (anyone, used by addComment/deleteComment)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+          ['commentCount']
+        )) ||
+        // Admin moderation
+        (isAdminUser() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+          ['isHidden', 'hiddenAt', 'hiddenReason', 'updatedAt']
+        ))
+      );
+
+      // Delete: owner or admin.
+      allow delete: if isSignedIn() && (
+        resource.data.authorId == request.auth.uid || isAdminUser()
+      );
+
+      // Comments subcollection.
+      match /comments/{commentId} {
+        allow read: if resource.data.isHidden != true ||
+                      isAdminUser() ||
+                      (isSignedIn() && resource.data.authorId == request.auth.uid);
+        allow list: if isSignedIn();
+        allow create: if isSignedIn() &&
+                        request.resource.data.authorId == request.auth.uid &&
+                        request.resource.data.text is string &&
+                        request.resource.data.text.size() > 0 &&
+                        request.resource.data.text.size() <= 2000 &&
+                        (request.resource.data.isHidden == false ||
+                         request.resource.data.isHidden == null);
+        allow update: if isSignedIn() && (
+          (resource.data.authorId == request.auth.uid &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt'])) ||
+          (isAdminUser() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+            ['isHidden', 'hiddenAt', 'hiddenReason']
+          ))
+        );
+        allow delete: if isSignedIn() && (
+          resource.data.authorId == request.auth.uid ||
+          get(/databases/$(database)/documents/board_posts/$(postId)).data.authorId == request.auth.uid ||
+          isAdminUser()
+        );
+      }
+
+      // View markers — one doc per uid so we count uniques.
+      match /views/{viewerUid} {
+        allow read: if isSignedIn() && request.auth.uid == viewerUid;
+        allow create: if isSignedIn() && request.auth.uid == viewerUid;
+        allow update, delete: if false;
+      }
+    }
+
+    // One-time admin broadcast queue (push + in-app inbox for all users).
+    match /adminBroadcastRequests/{campaignId} {
+      allow create: if isAdminUser() &&
+        request.resource.data.requestedBy == request.auth.uid &&
+        request.resource.data.campaignId == campaignId &&
+        request.resource.data.campaignId in [
+          'instagram_maintenance_2026_06',
+          'app_reinstall_2026_07',
+        ] &&
+        request.resource.data.status == 'queued';
+      allow read, list: if isAdminUser();
+      allow update, delete: if false;
+    }
+
+    // Admin Emails collection
+    // Canonical admin authority: active, email-verified users in this collection.
+    match /admin_emails/{email} {
+      // Any signed-in user can check whether an admin email exists.
+      // The actual privileged operations still rely on isAdmin()/isAdminUser().
+      allow read, list: if isSignedIn();
+
+      // Only admins can manage admin email documents.
+      allow create, update, delete: if isSignedIn() && isAdmin();
+    }
+
+    // Employees collection (Admin Portal)
+    match /employees/{employeeId} {
+      // Employee doc: owner or admin only
+      allow read: if isSignedIn() && (
+        request.auth.uid == employeeId ||
+        isAdminUser()
+      );
+      // Allow creating employee document if:
+      // 1. Current user is an admin (admin portal flow), OR
+      // 2. Creating an employee with UID matching the authenticated user (signup flow), OR
+      // 3. Creating a pending admin employee (for initial admin setup when no admins exist)
+      allow create: if isAdmin() || (
+        isSignedIn() &&
+        request.auth.uid == employeeId &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.email != null &&
+        request.resource.data.role != null &&
+        request.resource.data.name != null &&
+        request.resource.data.status == 'active' &&
+        (request.resource.data.role == 'admin' || request.resource.data.role == 'intern')
+      );
+      // Allow updating if:
+      // 1. Employee is updating their own document (UID matches document ID) - allow any updates to own document, OR
+      // 2. User is completing registration (updating a pending employee document to active with their UID), OR
+      // 3. Current user is an admin
+      allow update: if (
+        isSignedIn() && 
+        request.auth.uid == employeeId &&
+        request.resource.data.uid == request.auth.uid
+      ) || (
+        isSignedIn() &&
+        // Allow updating during registration: document must be pending, updating to active with user's UID
+        resource.data.status == 'pending' &&
+        request.resource.data.status == 'active' &&
+        request.resource.data.uid == request.auth.uid &&
+        // Only allow updating status, uid, and optionally phoneNumber during registration
+        request.resource.data.diff(resource.data).affectedKeys().hasAll(['status', 'uid']) &&
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'uid', 'phoneNumber']) ||
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'uid']))
+      ) || isAdmin();
+      // Allow deleting if:
+      // 1. Current user is an admin, OR
+      // 2. User is deleting a pending employee document during registration (to prevent duplicates)
+      //    - Document must be pending, OR
+      //    - User is deleting a document that's not their own UID (original document cleanup)
+      allow delete: if isAdmin();
+      // Employee list can contain sensitive org data
+      allow list: if isSignedIn() && isAdminUser();
+    }
+    
+    // Invitations collection (Admin Portal)
+    match /invitations/{invitationId} {
+      // Allow direct invitation verification only while invitation is active.
+      allow read: if (
+        resource.data.used == false &&
+        resource.data.expiresAt > request.time
+      ) || (isSignedIn() && isAdminUser());
+      // Block broad invitation enumeration
+      allow list: if isSignedIn() && isAdminUser();
+      // Allow creating invitations if:
+      // 1. Current user is an admin, OR
+      // 2. Creating invitation for initial admin setup (no authentication required)
+      allow create: if isAdmin();
+      // Only admins can update invitations (to mark as used)
+      // OR allow updating if the invitation is being marked as used during registration
+      allow update: if isAdmin() || (
+        isSignedIn() &&
+        // Allow updating if marking invitation as used
+        request.resource.data.used == true &&
+        resource.data.used == false &&
+        // Only allow updating used, usedAt fields
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'usedAt'])
+      );
+      // Only admins can delete invitations
+      allow delete: if isAdmin();
+    }
+    
+    // Active Users Analytics Collection
+    // Tracks daily, weekly, and monthly active users via period count +
+    // per-user member docs. Do not store every uid in one array.
+    match /activeUsers/{periodType} {
+      allow read: if isSignedIn();
+      allow write: if false;
+
+      match /periods/{periodId} {
+        allow read: if isSignedIn();
+        allow create, update: if isSignedIn();
+        allow delete: if isAdminUser();
+
+        match /members/{memberId} {
+          allow get: if isSignedIn() &&
+            (memberId == request.auth.uid || isAdminUser());
+          allow list: if isAdminUser();
+          allow create: if isSignedIn() && memberId == request.auth.uid;
+          allow update, delete: if false;
+        }
+      }
+    }
+    
+    // Clock Records Collection
+    // Tracks employee clock-in/out times
+    match /clockRecords/{recordId} {
+      // Employees can read their own records, admins can read all
+      allow read: if isSignedIn() && (
+        resource.data.employeeId == request.auth.uid ||
+        isAdminUser()
+      );
+      
+      // Employees can create their own clock-in records
+      allow create: if isSignedIn() && (
+        request.resource.data.employeeId == request.auth.uid ||
+        // Also allow if employeeId matches an employee document ID
+        exists(/databases/$(database)/documents/employees/$(request.auth.uid))
+      );
+      
+      // Employees can update their own records (for clock-out), admins can update any
+      // Admins can also update approval status
+      allow update: if isSignedIn() && (
+        resource.data.employeeId == request.auth.uid ||
+        isAdminUser()
+      );
+      
+      // Only admins can delete clock records
+      allow delete: if isAdmin();
+      
+      // Allow listing for employees (their own records) and admins (all records)
+      allow list: if isSignedIn();
+    }
+    
+    // Todos collection
+    match /todos/{todoId} {
+      // Allow reading todos if signed in
+      allow read: if isSignedIn();
+      // Allow creating todos if signed in
+      allow create: if isSignedIn() &&
+                     request.resource.data.keys().hasAll(['agenda', 'category', 'subcategory', 'urgency', 'completed', 'createdAt']) &&
+                     request.resource.data.category in ['Product', 'Business', 'Marketing'] &&
+                     // Validate subcategories based on category
+                     (
+                       (request.resource.data.category == 'Product' && request.resource.data.subcategory in ['Bug', 'Feature']) ||
+                       (request.resource.data.category == 'Business' && request.resource.data.subcategory in ['Finance', 'Incorporation', 'Investment']) ||
+                       (request.resource.data.category == 'Marketing' && request.resource.data.subcategory in ['Content', 'SNS'])
+                     ) &&
+                     request.resource.data.urgency in ['NOW', 'Red', 'Amber', 'Green'] &&
+                     request.resource.data.completed == false;
+      // Allow updating todos if signed in (can mark as complete, update agenda, etc.)
+      allow update: if isSignedIn();
+      // Allow deleting todos if signed in
+      allow delete: if isSignedIn();
+      // Allow listing todos if signed in
+      allow list: if isSignedIn();
+    }
+    
+    // Backlogs collection
+    match /backlogs/{backlogId} {
+      // Allow reading backlogs if signed in
+      allow read: if isSignedIn();
+      // Allow creating backlogs if signed in
+      allow create: if isSignedIn() &&
+                     request.resource.data.keys().hasAll(['title', 'description', 'createdAt']) &&
+                     request.resource.data.title is string &&
+                     request.resource.data.description is string;
+      // Allow updating backlogs if signed in
+      allow update: if isSignedIn();
+      // Allow deleting backlogs if signed in
+      allow delete: if isSignedIn();
+      // Allow listing backlogs if signed in
+      allow list: if isSignedIn();
+    }
+    
+    // Search Query Cache Collection
+    // Used by backend to cache Coupang API search results
+    // Read: Anyone can read (backend serves cached data to users)
+    // Write: Only backend (via Admin SDK) can write - Security Rules don't apply to Admin SDK
+    match /search_query_cache/{query} {
+      // Allow anyone to read cached search results
+      // This allows backend to read and serve cached data
+      allow read: if true;
+      
+      // Write operations are handled by backend Admin SDK (Security Rules bypassed)
+      // We deny client writes here for security (even though Admin SDK bypasses this)
+      // This prevents malicious clients from attempting to write directly
+      allow write: if false;  // Clients cannot write - only Admin SDK can
+    }
+    
+    // Coupang Products Collection
+    // Used by backend to store Coupang product search results by ingredient name
+    // Read: Anyone can read (needed for ingredient price lookup)
+    // Write: Only backend (via Admin SDK) can write - Security Rules don't apply to Admin SDK
+    match /coupang_products/{ingredientName} {
+      // Allow anyone to read product data
+      // This allows frontend to read product prices for ingredients
+      allow read: if true;
+      
+      // Write operations are handled by backend Admin SDK (Security Rules bypassed)
+      // We deny client writes here for security (even though Admin SDK bypasses this)
+      // This prevents malicious clients from attempting to write directly
+      allow write: if false;  // Clients cannot write - only Admin SDK can
+    }
+    
+    // Ingredient Unit Prices Collection
+    // Used by backend to store average unit prices for ingredients
+    // Read: Anyone can read (needed for recipe detail screen price display)
+    // Write: Only backend (via Admin SDK) can write - Security Rules don't apply to Admin SDK
+    match /ingredient_unit_prices/{ingredientName} {
+      // Allow anyone to read ingredient unit prices
+      // This allows frontend to read ingredient prices for recipe detail screen
+      allow read: if true;
+
+      // units subcollection (ingredient_unit_prices/{ingredient}/units/{unitKey})
+      // Frontend reads this path first for base-unit-specific unitPrice.
+      match /units/{unitKey} {
+        allow read: if true;
+        allow write: if false;  // Clients cannot write - only Admin SDK can
+      }
+      
+      // Write operations are handled by backend Admin SDK (Security Rules bypassed)
+      // We deny client writes here for security (even though Admin SDK bypasses this)
+      // This prevents malicious clients from attempting to write directly
+      allow write: if false;  // Clients cannot write - only Admin SDK can
+    }
+
+    // Monthly seasonal recipe index generated by backend/Cloud Functions.
+    // Read: public (used by explore seasonal section)
+    // Write: backend/Admin SDK only.
+    match /seasonal_recipe_index/{monthDoc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 재료명 → recipeIds 역인덱스 (냉장고 재료 추천). Cloud Functions/Admin SDK 가 유지.
+    // Read: public (앱에서 후보 recipeId 조회)
+    // Write: backend/Admin SDK only.
+    match /ingredient_recipe_index/{ingredientDoc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 셰프명 → recipeIds 역인덱스 (홈 셰프별 인기 레시피). Cloud Functions/Admin SDK 가 유지.
+    match /chef_recipe_index/{chefDoc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 홈 트렌드 섹션별 recipeIds 인덱스. Cloud Functions/Admin SDK 가 유지.
+    match /home_section_index/{sectionDoc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 홈 섹션 관리자 pin/block 오버라이드. Admin SDK only.
+    match /home_section_overrides/{sectionDoc} {
+      allow read, write: if false;
+    }
+
+    // 쿠팡 주문 원장. Admin SDK만 기록, 관리자만 조회.
+    match /coupang_attributed_orders/{orderId} {
+      allow read, list: if isAdminUser();
+      allow write: if false;
+    }
+
+    // 홈 CMS 번들/메타 (앱 읽기, 쓰기는 Admin SDK/로컬 대시보드만).
+    match /home_cms/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /home_cms_posters/{posterId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /home_cms_sections/{sectionKey} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 핫한 레시피 묶음 인덱스 (커뮤니티 탭). 같은 기본 요리명으로 묶인 그룹의
+    // 카운트/최신 썸네일을 Cloud Functions 가 유지한다.
+    // Read: public (UI 가 5개 이상 묶음만 가져옴)
+    // Write: Admin SDK only (recipeGroups.js)
+    match /recipe_groups/{groupId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // 레시피 제목 → 기본 요리명 매핑 캐시. LLM 비용 절감 목적.
+    // Read/Write: Admin SDK only.
+    match /recipe_group_aliases/{titleHash} {
+      allow read, write: if false;
+    }
+
+    // Config collection (backend-only)
+    // pending_scraping_ingredients, extra_scraping_ingredients: Railway/로컬 스크래핑 주기 연동용
+    // pending_unit_price_ingredients: 레시피 디테일에서 가격 없음 보고 → 백엔드 단가 큐
+    // Read/Write: Backend only (Admin SDK). Clients must not read or write.
+    match /config/{document} {
+      allow read, write: if false;  // Only Admin SDK (backend) can access
+    }
+    
+    // Follows collection (팔로우 시스템)
+    match /follows/{followId} {
+      // 읽기: 모든 인증된 사용자가 읽을 수 있음
+      allow read: if isSignedIn();
+      
+      // 생성: 로그인한 사용자만 자신의 팔로우 관계를 생성할 수 있음
+      allow create: if isSignedIn() 
+        && request.resource.data.followerId == request.auth.uid
+        && request.resource.data.followerId != request.resource.data.followingId; // 자기 자신 팔로우 방지
+      
+      // 삭제: 로그인한 사용자만 자신의 팔로우 관계를 삭제할 수 있음
+      allow delete: if isSignedIn() 
+        && resource.data.followerId == request.auth.uid;
+      
+      // 업데이트: 불가 (팔로우 관계는 생성/삭제만 가능)
+      allow update: if false;
+    }
+    
+    // Recipe Reports collection (레시피 문제 보고)
+    match /recipe_reports/{reportId} {
+      // Only admins can read reports
+      allow read: if isSignedIn() && isAdminUser();
+      allow list: if isSignedIn() && isAdminUser();
+
+      // Any user (including anonymous/guest) can create a report
+      allow create: if request.resource.data.recipeId is string &&
+                       request.resource.data.message is string &&
+                       request.resource.data.message.size() > 0 &&
+                       request.resource.data.message.size() <= 500;
+
+      allow update, delete: if false;
+    }
+
+    // Reports collection (신고 시스템)
+    match /reports/{reportId} {
+      // 읽기: 신고자는 자신의 신고를 읽을 수 있고, 관리자는 모든 신고를 읽을 수 있음
+      allow read: if isSignedIn() && (
+        resource.data.reporterId == request.auth.uid ||
+        isAdminUser()
+      );
+      
+      // 생성: 로그인한 사용자만 신고를 생성할 수 있음
+      // 신고자는 자신의 UID와 일치해야 함
+      allow create: if isSignedIn() 
+        && request.resource.data.reporterId == request.auth.uid
+        && request.resource.data.type in ['review', 'comment', 'recipe', 'recipe_url', 'meetup', 'challenge']
+        && request.resource.data.reason is string
+        && request.resource.data.status == 'pending'
+        && request.resource.data.targetId is string;
+      
+      // 업데이트: 관리자만 신고 상태를 업데이트할 수 있음
+      allow update: if isSignedIn() && isAdminUser();
+      
+      // 삭제: 관리자만 신고를 삭제할 수 있음
+      allow delete: if isSignedIn() && isAdminUser();
+      
+      // 목록 조회: 관리자만 모든 신고 목록을 조회할 수 있음
+      allow list: if isSignedIn() && isAdminUser();
+    }
+    
+    // 앱 인앱 피드백 (설정 → 의견 보내기 시트). 클라이언트는 생성만, 조회는 관리자만.
+    match /app_feedback/{feedbackId} {
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.categories is list &&
+        request.resource.data.categories.size() >= 1 &&
+        request.resource.data.categories.size() <= 20 &&
+        request.resource.data.detail is string &&
+        request.resource.data.detail.size() <= 2000 &&
+        request.resource.data.liked is string &&
+        request.resource.data.liked.size() <= 500 &&
+        request.resource.data.disliked is string &&
+        request.resource.data.disliked.size() <= 500 &&
+        request.resource.data.platform is string &&
+        request.resource.data.keys().hasOnly([
+          'createdAt', 'userId', 'categories', 'detail', 'liked', 'disliked', 'platform'
+        ]);
+      allow read, list: if isAdminUser();
+      allow update, delete: if false;
+    }
+
+    // 분석(파싱) 실패/지연 신고. 사용자가 "분석이 안돼요"를 원탭으로 관리자에게
+    // 바로 알릴 수 있게 하는 컬렉션. 생성은 누구나(게스트 포함, 검증 후),
+    // 조회/관리는 관리자만.
+    match /parsing_failures/{reportId} {
+      allow read, list: if isSignedIn() && isAdminUser();
+      allow create: if request.resource.data.reason is string &&
+                       request.resource.data.reason.size() > 0 &&
+                       request.resource.data.reason in ['failed', 'stuck', 'wrong_result'] &&
+                       request.resource.data.status == 'open' &&
+                       request.resource.data.kind is string &&
+                       (request.resource.data.sourceUrl is string &&
+                        request.resource.data.sourceUrl.size() <= 2000) &&
+                       (request.resource.data.errorMessage is string &&
+                        request.resource.data.errorMessage.size() <= 1000) &&
+                       (request.resource.data.note is string &&
+                        request.resource.data.note.size() <= 1000);
+      allow update, delete: if isSignedIn() && isAdminUser();
+    }
+
+    // 영수증/냉장고 스캔 인식 오류 신고. 로그인 사용자만 생성, 조회는 관리자만.
+    match /fridge_scan_reports/{reportId} {
+      allow read, list: if isSignedIn() && isAdminUser();
+      allow create: if isSignedIn() &&
+                       request.resource.data.userId == request.auth.uid &&
+                       request.resource.data.reason is string &&
+                       request.resource.data.reason in
+                         ['wrong_name', 'missing_item', 'blocked_item',
+                          'junk_item', 'other'] &&
+                       request.resource.data.status == 'open' &&
+                       request.resource.data.photoType is string &&
+                       request.resource.data.note is string &&
+                       request.resource.data.note.size() <= 1000 &&
+                       request.resource.data.itemsJson is string &&
+                       request.resource.data.itemsJson.size() <= 8000 &&
+                       request.resource.data.focusItemName is string &&
+                       request.resource.data.focusItemName.size() <= 120 &&
+                       request.resource.data.focusRawLine is string &&
+                       request.resource.data.focusRawLine.size() <= 300;
+      allow update, delete: if isSignedIn() && isAdminUser();
+    }
+
+    // [TEMP TEST] Coupang deeplink 검증용 임시 컬렉션.
+    // 문서: test/coupang_deeplink → { urls: [ {label, url}, ... ] }
+    // 검증 종료 후 이 블록과 해당 문서 삭제.
+    match /test/{document} {
+      allow read: if true;   // 클라이언트가 테스트 URL 목록을 읽어가야 함
+      allow write: if false; // 문서 편집은 Firestore 콘솔(Admin)에서만
+    }
+
+    // 구매완료 사진인증 관리자 검수 큐 — 백엔드 Admin SDK만 기록.
+    // 앱 관리자 UI는 /purchase-verification/admin/queue API를 쓰지만,
+    // 콘솔/디버그 조회를 위해 관리자 read만 허용한다.
+    match /purchase_verification_queue/{verificationId} {
+      allow read, list: if isAdminUser();
+      allow create, update, delete: if false;
+    }
+
+    // 재료 단가 문제 보고 (백엔드 Admin SDK 기록). 로컬 오류 대시보드 관찰용.
+    match /ingredient_price_issue_reports/{reportId} {
+      allow read, list: if isSignedIn() && isAdminUser();
+      allow create, update, delete: if false;
+    }
+
+    // 신고 자동조치 로그 (Cloud Functions 기록). 로컬 오류 대시보드 관찰용.
+    match /moderation_alerts/{alertId} {
+      allow read, list: if isSignedIn() && isAdminUser();
+      allow create, update, delete: if false;
+    }
+
+    // Community meetups (소모임 / 오픈 클래스).
+    match /meetups/{meetupId} {
+      function meetupVisible() {
+        return resource.data.isHidden != true ||
+          resource.data.hostId == request.auth.uid ||
+          isAdminUser();
+      }
+
+      function isMeetupHost() {
+        return isSignedIn() && resource.data.hostId == request.auth.uid;
+      }
+
+      allow get: if isSignedIn() && meetupVisible();
+      allow list: if isSignedIn() && meetupVisible();
+
+      allow create: if isSignedIn() &&
+        request.resource.data.hostId == request.auth.uid &&
+        request.resource.data.memberCount == 1 &&
+        request.resource.data.cancelled == false &&
+        request.resource.data.isHidden == false &&
+        request.resource.data.kind in ['small_group', 'open_class'] &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() > 0 &&
+        request.resource.data.title.size() <= 80 &&
+        request.resource.data.subtitle is string &&
+        request.resource.data.subtitle.size() <= 80 &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() <= 2000 &&
+        request.resource.data.tag is string &&
+        request.resource.data.tag.size() <= 20 &&
+        request.resource.data.placeText is string &&
+        request.resource.data.placeText.size() <= 80 &&
+        request.resource.data.meetingFormat in ['offline', 'live'] &&
+        request.resource.data.startsAt is timestamp &&
+        request.resource.data.startsAt > request.time &&
+        request.resource.data.capacity is int &&
+        request.resource.data.capacity >= 2 &&
+        request.resource.data.capacity <= 30 &&
+        request.resource.data.priceKrw is int &&
+        request.resource.data.priceKrw >= 0 &&
+        (request.resource.data.kind == 'open_class' ||
+          request.resource.data.priceKrw == 0);
+
+      allow update: if isSignedIn() && (
+        (isMeetupHost() &&
+         request.resource.data.hostId == resource.data.hostId &&
+         request.resource.data.memberCount == resource.data.memberCount &&
+         request.resource.data.kind == resource.data.kind &&
+         request.resource.data.priceKrw == resource.data.priceKrw &&
+         request.resource.data.capacity is int &&
+         request.resource.data.capacity >= resource.data.memberCount &&
+         request.resource.data.capacity <= 30 &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['title', 'subtitle', 'description', 'tag', 'placeText',
+                     'meetingFormat', 'startsAt', 'recurrenceNote', 'capacity',
+                     'iconKey', 'cancelled', 'updatedAt'])) ||
+        (isAdminUser() &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['isHidden', 'updatedAt']))
+      );
+
+      allow delete: if false;
+
+      match /attendees/{attendeeUid} {
+        function parentMeetup() {
+          return get(/databases/$(database)/documents/meetups/$(meetupId)).data;
+        }
+
+        allow get, list: if isSignedIn() && (
+          parentMeetup().isHidden != true ||
+          parentMeetup().hostId == request.auth.uid ||
+          isAdminUser()
+        );
+
+        allow create: if isSignedIn() &&
+          request.auth.uid == attendeeUid &&
+          request.resource.data.uid == request.auth.uid &&
+          request.resource.data.name is string &&
+          (
+            (request.resource.data.role == 'host' &&
+             request.resource.data.status == 'joined' &&
+             parentMeetup().hostId == request.auth.uid &&
+             parentMeetup().memberCount == 1) ||
+            (request.resource.data.role == 'member' &&
+             request.resource.data.status == 'applied' &&
+             parentMeetup().priceKrw > 0 &&
+             parentMeetup().cancelled != true &&
+             parentMeetup().isHidden != true)
+          );
+
+        allow delete: if isSignedIn() &&
+          resource.data.status == 'applied' &&
+          (resource.data.uid == request.auth.uid ||
+           parentMeetup().hostId == request.auth.uid);
+
+        allow update: if false;
+      }
+    }
+
+    // Community challenges (공식 / 친구).
+    match /challenges/{challengeId} {
+      function canGetChallenge() {
+        return isAdminUser() ||
+          resource.data.createdBy == request.auth.uid ||
+          (resource.data.isHidden != true && resource.data.kind == 'official') ||
+          (resource.data.isHidden != true &&
+           resource.data.kind == 'friend' &&
+           exists(/databases/$(database)/documents/challenges/$(challengeId)/participants/$(request.auth.uid)));
+      }
+
+      allow get: if isSignedIn() && canGetChallenge();
+      allow list: if isSignedIn() &&
+        resource.data.kind == 'official' &&
+        resource.data.isHidden != true;
+
+      allow create: if isSignedIn() &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.cancelled == false &&
+        request.resource.data.isHidden == false &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() > 0 &&
+        request.resource.data.title.size() <= 80 &&
+        request.resource.data.subtitle is string &&
+        request.resource.data.subtitle.size() <= 80 &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() <= 2000 &&
+        request.resource.data.tag is string &&
+        request.resource.data.tag.size() <= 20 &&
+        request.resource.data.startsAt is timestamp &&
+        request.resource.data.endsAt is timestamp &&
+        request.resource.data.endsAt > request.resource.data.startsAt &&
+        request.resource.data.requiredProofCount is int &&
+        request.resource.data.requiredProofCount >= 1 &&
+        request.resource.data.requiredProofCount <= 14 &&
+        request.resource.data.proofMode in ['count', 'consecutive_days'] &&
+        (
+          (request.resource.data.kind == 'friend' &&
+           request.resource.data.participantCount == 1 &&
+           request.resource.data.goalParticipantCount == 0 &&
+           request.resource.data.inviteCode is string &&
+           request.resource.data.inviteCode.size() == 6) ||
+          (request.resource.data.kind == 'official' &&
+           isAdminUser() &&
+           request.resource.data.participantCount == 0 &&
+           request.resource.data.goalParticipantCount is int &&
+           request.resource.data.goalParticipantCount >= 1 &&
+           !request.resource.data.keys().hasAny(['inviteCode']))
+        );
+
+      allow update: if isSignedIn() && (
+        (resource.data.createdBy == request.auth.uid &&
+         request.resource.data.createdBy == resource.data.createdBy &&
+         request.resource.data.kind == resource.data.kind &&
+         request.resource.data.participantCount == resource.data.participantCount &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['title', 'subtitle', 'tag', 'description', 'startsAt',
+                     'endsAt', 'goalParticipantCount', 'requiredProofCount',
+                     'proofMode', 'cancelled', 'updatedAt'])) ||
+        (isAdminUser() &&
+         request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['isHidden', 'updatedAt']))
+      );
+
+      allow delete: if false;
+
+      match /participants/{uid} {
+        function parentChallenge() {
+          return get(/databases/$(database)/documents/challenges/$(challengeId)).data;
+        }
+
+        allow get: if isSignedIn() && (
+          request.auth.uid == uid ||
+          isAdminUser() ||
+          (parentChallenge().kind == 'friend' &&
+           (parentChallenge().createdBy == request.auth.uid ||
+            exists(/databases/$(database)/documents/challenges/$(challengeId)/participants/$(request.auth.uid))))
+        );
+
+        allow list: if isSignedIn() && (
+          isAdminUser() ||
+          (parentChallenge().kind == 'friend' &&
+           (parentChallenge().createdBy == request.auth.uid ||
+            exists(/databases/$(database)/documents/challenges/$(challengeId)/participants/$(request.auth.uid))))
+        );
+
+        allow create: if isSignedIn() &&
+          request.auth.uid == uid &&
+          request.resource.data.uid == request.auth.uid &&
+          request.resource.data.status == 'joined' &&
+          request.resource.data.proofCount == 0 &&
+          parentChallenge().createdBy == request.auth.uid &&
+          parentChallenge().kind == 'friend' &&
+          parentChallenge().participantCount == 1;
+
+        allow update, delete: if false;
+      }
+
+      match /proofs/{reviewId} {
+        allow get: if isSignedIn() && (
+          resource.data.uid == request.auth.uid ||
+          isAdminUser()
+        );
+        allow list: if isSignedIn() && (
+          isAdminUser() ||
+          get(/databases/$(database)/documents/challenges/$(challengeId)).data.kind == 'friend' &&
+          exists(/databases/$(database)/documents/challenges/$(challengeId)/participants/$(request.auth.uid))
+        );
+        allow create, update, delete: if false;
+      }
+    }
+
+    match /challenge_invite_codes/{code} {
+      allow get: if isSignedIn();
+      allow list: if false;
+      allow create: if isSignedIn() &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.challengeId is string &&
+        exists(/databases/$(database)/documents/challenges/$(request.resource.data.challengeId)) &&
+        get(/databases/$(database)/documents/challenges/$(request.resource.data.challengeId)).data.createdBy == request.auth.uid &&
+        get(/databases/$(database)/documents/challenges/$(request.resource.data.challengeId)).data.kind == 'friend' &&
+        get(/databases/$(database)/documents/challenges/$(request.resource.data.challengeId)).data.inviteCode == code;
+      allow update, delete: if false;
+    }
+
+    // Default deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

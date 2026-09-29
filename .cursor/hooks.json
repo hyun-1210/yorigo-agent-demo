@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "subagentStart": [
+      {
+        "command": "python .cursor/hooks/allow-safe-subagents.py",
+        "matcher": "explore|cursor-guide|ci-investigator|bugbot|security-review"
+      }
+    ]
+  }
+}

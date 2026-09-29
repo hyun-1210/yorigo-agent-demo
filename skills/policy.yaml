@@ -1,0 +1,17 @@
+# 장보기 에이전트가 지킬 호스트와 행동.
+
+allow:
+  - https://integrate.api.nvidia.com
+  - self
+
+deny:
+  - arbitrary_url: true
+  - payment_capture: true
+
+gates:
+  allergy: hard_stop
+  budget: block_cart_until_override
+  spend: confirm_before_cart_write
+
+credentials:
+  stay_on_host: true

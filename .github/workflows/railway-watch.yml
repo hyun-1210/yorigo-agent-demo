@@ -1,0 +1,103 @@
+# Daily Railway log/queue digest (email only — no auto-fix / deploy / PR).
+# Schedule: 00:00 UTC = 09:00 KST
+#
+# Required secrets:
+#   RAILWAY_TOKEN
+#   RESEND_API_KEY
+#   ALERT_EMAIL_TO
+#   FIREBASE_SERVICE_ACCOUNT_JSON
+# Optional:
+#   ALERT_EMAIL_FROM  (default: Railway Watch <noreply@alerts.yorigo.kr>)
+#   RAILWAY_PROJECT / RAILWAY_ENVIRONMENT / RAILWAY_SERVICE / RAILWAY_PUBLIC_URL
+name: Railway Daily Watch
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Log lookback window (e.g. 24h, 12h)"
+        required: false
+        default: "24h"
+      dry_run:
+        description: "If true, skip email send"
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    name: Collect, detect, email
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-cloud-firestore firebase-admin requests
+
+      - name: Install Railway CLI
+        run: |
+          npm install -g @railway/cli
+          railway --version
+
+      - name: Write Firebase SA
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON secret is empty"
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > backend/firebase-service-account.json
+
+      - name: Unit tests (detectors)
+        run: python -m unittest ops.railway_watch.test_detectors -v
+
+      - name: Run railway watch
+        id: watch
+        continue-on-error: true
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+          GOOGLE_APPLICATION_CREDENTIALS: backend/firebase-service-account.json
+          RAILWAY_PROJECT: remarkable-energy
+          RAILWAY_ENVIRONMENT: production
+          RAILWAY_SERVICE: yorigo
+          RAILWAY_PUBLIC_URL: https://yorigo-production.up.railway.app
+        run: |
+          set +e
+          SINCE="${{ github.event.inputs.since }}"
+          if [ -z "$SINCE" ]; then SINCE="24h"; fi
+          DRY="${{ github.event.inputs.dry_run }}"
+          ARGS=(--since "$SINCE")
+          if [ "$DRY" = "true" ]; then
+            ARGS+=(--dry-run)
+          fi
+          python -m ops.railway_watch.main "${ARGS[@]}"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          REPORT_DIR=$(ls -1d ops/railway_watch/reports/*/ 2>/dev/null | sort | tail -n 1)
+          echo "report_dir=$REPORT_DIR" >> "$GITHUB_OUTPUT"
+          echo "Watch finished code=$code report_dir=$REPORT_DIR"
+          exit 0
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-watch-${{ github.run_id }}
+          path: ops/railway_watch/reports/
+          if-no-files-found: warn

@@ -1,0 +1,11 @@
+{
+  "warning_median_ratio": 1.5,
+  "critical_median_ratio": 2.0,
+  "underage_exec_warning": 3,
+  "coupang_full_scan_min_avg_docs": 1000,
+  "metrics": [
+    "document_reads",
+    "document_writes",
+    "api_requests"
+  ]
+}

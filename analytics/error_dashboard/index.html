@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yorigo 오류 관찰 대시보드</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div id="login-view" hidden></div>
+
+    <div id="app-view">
+      <header class="topbar">
+        <h1>Yorigo 오류 관찰</h1>
+        <div class="topbar-meta">
+          <span id="user-email">로컬 Admin SDK (로그인 없음)</span>
+          <span>갱신 <span id="last-refresh">—</span></span>
+          <button class="btn" type="button" id="btn-refresh">새로고침</button>
+        </div>
+      </header>
+
+      <div id="status-banner" class="status-banner" hidden></div>
+
+      <div class="wrap">
+        <div class="global-filters" id="global-filters">
+          <label>
+            시작
+            <input type="date" id="global-dateFrom" />
+          </label>
+          <label>
+            종료
+            <input type="date" id="global-dateTo" />
+          </label>
+          <label>
+            정렬
+            <select id="global-order">
+              <option value="desc" selected>최신순 ↓</option>
+              <option value="asc">오래된순 ↑</option>
+            </select>
+          </label>
+          <label>
+            기기
+            <select id="global-device">
+              <option value="all" selected>전체</option>
+              <option value="ios">iOS</option>
+              <option value="android">Android</option>
+            </select>
+          </label>
+          <button class="btn btn-primary" type="button" id="global-apply">필터 적용</button>
+          <button class="btn" type="button" id="global-reset">초기화</button>
+          <span class="muted" id="global-hint">날짜·정렬 전 탭 공통. 기기: Error Recipes는 parsing_failures 보강, Parsing/Feedback/Fridge는 문서 필드.</span>
+        </div>
+
+        <nav id="tabs" class="tabs">
+          <button class="tab-btn active" data-tab="overview" type="button">Overview</button>
+          <button class="tab-btn" data-tab="errorRecipes" type="button">Error Recipes</button>
+          <button class="tab-btn" data-tab="parsingFailures" type="button">Parsing Failures</button>
+          <button class="tab-btn" data-tab="recipeReports" type="button">Recipe Reports</button>
+          <button class="tab-btn" data-tab="reports" type="button">Reports</button>
+          <button class="tab-btn" data-tab="appFeedback" type="button">App Feedback</button>
+          <button class="tab-btn" data-tab="fridgeScan" type="button">Fridge Scan</button>
+          <button class="tab-btn" data-tab="priceIssues" type="button">Price Issues</button>
+          <button class="tab-btn" data-tab="moderation" type="button">Moderation</button>
+        </nav>
+
+        <div id="panels">
+          <!-- Overview -->
+          <section class="tab-panel" data-panel="overview">
+            <div class="tab-error" hidden></div>
+            <div id="overview-loading" class="muted">집계 중…</div>
+            <div id="overview-kpis" class="kpi-row"></div>
+            <div class="grid-2">
+              <div>
+                <canvas id="overview-chart" height="140"></canvas>
+              </div>
+              <div class="dist-block">
+                <h3>parsing platform 분포</h3>
+                <div id="dist-parsing-platform"></div>
+              </div>
+            </div>
+            <div class="grid-2" style="margin-top: 16px">
+              <div class="dist-block">
+                <h3>parsing reason 분포</h3>
+                <div id="dist-parsing-reason"></div>
+              </div>
+              <div class="dist-block">
+                <h3>reports type 분포</h3>
+                <div id="dist-reports-type"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Error Recipes -->
+          <section class="tab-panel" data-panel="errorRecipes" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <select id="errorRecipes-errorType">
+                <option value="">errorType 전체</option>
+                <option value="server_error">server_error</option>
+                <option value="insufficient_info">insufficient_info</option>
+                <option value="not_cooking">not_cooking</option>
+                <option value="video_too_long">video_too_long</option>
+              </select>
+              <select id="errorRecipes-hidden">
+                <option value="">hidden 전체</option>
+                <option value="true">hidden만</option>
+                <option value="false">visible만</option>
+              </select>
+              <input id="errorRecipes-q" type="search" placeholder="제목/오류/URL 검색" />
+              <button class="btn btn-primary" type="button" id="errorRecipes-apply">적용</button>
+              <button class="btn" type="button" id="errorRecipes-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>updatedAt</th>
+                    <th>제목</th>
+                    <th>errorType</th>
+                    <th>영상 URL</th>
+                    <th>userId</th>
+                    <th>기기</th>
+                    <th>error</th>
+                    <th>hidden</th>
+                  </tr>
+                </thead>
+                <tbody id="errorRecipes-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="errorRecipes-meta"></span>
+              <button class="btn" type="button" id="errorRecipes-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Parsing Failures -->
+          <section class="tab-panel" data-panel="parsingFailures" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <select id="parsingFailures-reason">
+                <option value="">reason 전체</option>
+                <option value="failed">failed</option>
+                <option value="stuck">stuck</option>
+                <option value="wrong_result">wrong_result</option>
+              </select>
+              <select id="parsingFailures-status">
+                <option value="">status 전체</option>
+                <option value="open">open</option>
+                <option value="resolved">resolved</option>
+              </select>
+              <select id="parsingFailures-kind">
+                <option value="">kind 전체</option>
+                <option value="link">link</option>
+                <option value="text">text</option>
+                <option value="image">image</option>
+              </select>
+              <input id="parsingFailures-platform" type="search" placeholder="platform (예: instagram)" />
+              <button class="btn btn-primary" type="button" id="parsingFailures-apply">적용</button>
+              <button class="btn" type="button" id="parsingFailures-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>reason</th>
+                    <th>platform</th>
+                    <th>영상 URL</th>
+                    <th>userId</th>
+                    <th>기기</th>
+                    <th>errorType</th>
+                    <th>errorMessage</th>
+                    <th>status</th>
+                  </tr>
+                </thead>
+                <tbody id="parsingFailures-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="parsingFailures-meta"></span>
+              <button class="btn" type="button" id="parsingFailures-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Recipe Reports -->
+          <section class="tab-panel" data-panel="recipeReports" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <input id="recipeReports-q" type="search" placeholder="제목/메시지/recipeId" />
+              <button class="btn btn-primary" type="button" id="recipeReports-apply">적용</button>
+              <button class="btn" type="button" id="recipeReports-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>제목</th>
+                    <th>message</th>
+                    <th>recipeId</th>
+                    <th>userId</th>
+                  </tr>
+                </thead>
+                <tbody id="recipeReports-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="recipeReports-meta"></span>
+              <button class="btn" type="button" id="recipeReports-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Reports -->
+          <section class="tab-panel" data-panel="reports" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <select id="reports-type">
+                <option value="">type 전체</option>
+                <option value="recipe">recipe</option>
+                <option value="review">review</option>
+                <option value="comment">comment</option>
+                <option value="recipe_url">recipe_url</option>
+              </select>
+              <select id="reports-status">
+                <option value="">status 전체</option>
+                <option value="pending">pending</option>
+                <option value="resolved">resolved</option>
+                <option value="dismissed">dismissed</option>
+              </select>
+              <button class="btn btn-primary" type="button" id="reports-apply">적용</button>
+              <button class="btn" type="button" id="reports-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>type</th>
+                    <th>reason</th>
+                    <th>status</th>
+                    <th>targetId</th>
+                    <th>desc</th>
+                  </tr>
+                </thead>
+                <tbody id="reports-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="reports-meta"></span>
+              <button class="btn" type="button" id="reports-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- App Feedback -->
+          <section class="tab-panel" data-panel="appFeedback" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <input id="appFeedback-category" type="search" placeholder="category 라벨" />
+              <input id="appFeedback-platform" type="search" placeholder="platform" />
+              <button class="btn btn-primary" type="button" id="appFeedback-apply">적용</button>
+              <button class="btn" type="button" id="appFeedback-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>categories</th>
+                    <th>detail</th>
+                    <th>liked</th>
+                    <th>disliked</th>
+                    <th>platform</th>
+                  </tr>
+                </thead>
+                <tbody id="appFeedback-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="appFeedback-meta"></span>
+              <button class="btn" type="button" id="appFeedback-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Fridge Scan -->
+          <section class="tab-panel" data-panel="fridgeScan" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <select id="fridgeScan-reason">
+                <option value="">reason 전체</option>
+                <option value="wrong_name">wrong_name</option>
+                <option value="missing_item">missing_item</option>
+                <option value="blocked_item">blocked_item</option>
+                <option value="junk_item">junk_item</option>
+                <option value="other">other</option>
+              </select>
+              <select id="fridgeScan-status">
+                <option value="">status 전체</option>
+                <option value="open">open</option>
+                <option value="resolved">resolved</option>
+              </select>
+              <button class="btn btn-primary" type="button" id="fridgeScan-apply">적용</button>
+              <button class="btn" type="button" id="fridgeScan-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>reason</th>
+                    <th>photoType</th>
+                    <th>focus</th>
+                    <th>note</th>
+                    <th>status</th>
+                  </tr>
+                </thead>
+                <tbody id="fridgeScan-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="fridgeScan-meta"></span>
+              <button class="btn" type="button" id="fridgeScan-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Price Issues -->
+          <section class="tab-panel" data-panel="priceIssues" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <input id="priceIssues-q" type="search" placeholder="재료/메시지/recipeId" />
+              <button class="btn btn-primary" type="button" id="priceIssues-apply">적용</button>
+              <button class="btn" type="button" id="priceIssues-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>재료</th>
+                    <th>message</th>
+                    <th>레시피</th>
+                    <th>recipeId</th>
+                  </tr>
+                </thead>
+                <tbody id="priceIssues-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="priceIssues-meta"></span>
+              <button class="btn" type="button" id="priceIssues-next">다음 페이지</button>
+            </div>
+          </section>
+
+          <!-- Moderation -->
+          <section class="tab-panel" data-panel="moderation" hidden>
+            <div class="tab-error" hidden></div>
+            <div class="filters">
+              <select id="moderation-eventType">
+                <option value="">eventType 전체</option>
+                <option value="report_created">report_created</option>
+                <option value="report_auto_hidden">report_auto_hidden</option>
+              </select>
+              <button class="btn btn-primary" type="button" id="moderation-apply">적용</button>
+              <button class="btn" type="button" id="moderation-csv">CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>시간</th>
+                    <th>eventType</th>
+                    <th>reason</th>
+                    <th>reportId</th>
+                    <th>reviewId</th>
+                    <th>targetUser</th>
+                  </tr>
+                </thead>
+                <tbody id="moderation-tbody"></tbody>
+              </table>
+            </div>
+            <div class="meta-row">
+              <span id="moderation-meta"></span>
+              <button class="btn" type="button" id="moderation-next">다음 페이지</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail-modal" class="modal" hidden>
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3 id="detail-title">상세</h3>
+          <button class="btn" type="button" id="detail-close">닫기</button>
+        </div>
+        <pre id="detail-body"></pre>
+      </div>
+    </div>
+
+    <script type="module" src="./js/app.js?v=6"></script>
+  </body>
+</html>

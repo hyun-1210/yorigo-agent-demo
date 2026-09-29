@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="com.google.firebase.auth.api.Store." />
+        <exclude domain="sharedpref" path="com.google.firebase.auth.api.crypto." />
+        <exclude domain="sharedpref" path="com.google.firebase.auth." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="com.google.firebase.auth.api.Store." />
+        <exclude domain="sharedpref" path="com.google.firebase.auth.api.crypto." />
+        <exclude domain="sharedpref" path="com.google.firebase.auth." />
+    </device-transfer>
+</data-extraction-rules>

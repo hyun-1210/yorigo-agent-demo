@@ -1,0 +1,94 @@
+# yorigo-f7408 바깥 버킷으로 Firestore/Auth/Storage/Mixpanel 백업.
+# 스케줄: 매주 월요일 03:00 UTC = 12:00 KST
+# Storage 주간 증분은 GCP Transfer Job(yorigo-storage-offsite-full)이 담당.
+# 이 워크플로는 Auth/Firestore 스냅샷 + Mixpanel 증분. cron은 Storage rsync를 건너뛴다.
+#
+# Required secrets:
+#   FIREBASE_SERVICE_ACCOUNT_JSON
+#   MIXPANEL_API_SECRET
+# Optional:
+#   RESEND_API_KEY, ALERT_EMAIL_TO, ALERT_EMAIL_FROM
+name: Weekly Offsite Backup
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "full = Mixpanel 전체 기간, monthly = 증분"
+        required: true
+        default: "monthly"
+        type: choice
+        options:
+          - monthly
+          - full
+      skip_storage:
+        description: "Storage 생략 (Transfer Service가 주간 복사를 맡을 때)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: Copy to backup project
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install firebase-admin google-cloud-storage google-cloud-firestore google-auth
+
+      - name: Write Firebase SA
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FIREBASE_SERVICE_ACCOUNT_JSON}" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON secret is empty"
+            exit 1
+          fi
+          printf '%s' "${FIREBASE_SERVICE_ACCOUNT_JSON}" > backend/firebase-service-account.json
+
+      - name: Run backup
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: backend/firebase-service-account.json
+          MIXPANEL_API_SECRET: ${{ secrets.MIXPANEL_API_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+          SOURCE_PROJECT_ID: yorigo-f7408
+          BACKUP_PROJECT_ID: yorigo-offsite-backup
+          BACKUP_BUCKET: yorigo-offsite-backup-data
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event.inputs.mode || 'monthly' }}"
+          SKIP_STORAGE="${{ github.event.inputs.skip_storage || 'true' }}"
+          extra=()
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "$SKIP_STORAGE" = "true" ]; then
+            extra+=(--skip-storage)
+          fi
+          python ops/backup/run_backup.py --mode "$MODE" "${extra[@]}"

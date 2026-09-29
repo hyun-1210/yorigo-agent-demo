@@ -1,0 +1,27 @@
+{
+  "description": "홈 검색 에이전트 골든. 라이브 LLM 없이 가드·칩·정규식·sanitize만 고정한다.",
+  "cases": [
+    {"id": "late1", "message": "야식", "expect_retrieve": "section", "expect_section_key": "moment_late_night", "expect_used_llm": false},
+    {"id": "dessert1", "message": "달달한 거", "expect_retrieve": "section", "expect_section_key": "dessert", "expect_used_llm": false},
+    {"id": "spicy_crave", "message": "매운 거 땡겨", "expect_retrieve": "weekly", "expect_used_llm": false},
+    {"id": "dish2", "message": "된장찌개", "expect_retrieve": "client_search", "expect_used_llm": false},
+    {"id": "protein1", "message": "단백질 많은 거", "expect_retrieve": "section", "expect_section_key": "high_protein", "expect_used_llm": false},
+    {"id": "protein2", "chip_id": "high_protein", "message": "", "expect_retrieve": "section", "expect_section_key": "high_protein", "expect_used_llm": false},
+    {"id": "fast1", "chip_id": "fast", "message": "", "expect_retrieve": "section", "expect_section_key": "quick_10min", "expect_used_llm": false},
+    {"id": "fast2", "message": "10분 안에 만들 수 있는 거", "expect_retrieve": "section", "expect_section_key": "quick_10min", "expect_used_llm": false},
+    {"id": "hangover1", "chip_id": "hangover", "message": "", "expect_retrieve": "client_search", "expect_q": "해장", "expect_used_llm": false},
+    {"id": "eat1", "chip_id": "what_to_eat", "message": "", "expect_retrieve": "weekly", "expect_used_llm": false},
+    {"id": "ing1", "chip_id": "with_ingredient", "focus_ingredient": "닭가슴살", "message": "", "expect_retrieve": "ingredient", "expect_used_llm": false},
+    {"id": "ing2", "chip_id": "with_ingredient", "focus_ingredient": "", "expect_retrieve": "none", "expect_reply_contains": "재료"},
+    {"id": "ing3", "message": "닭가슴살 남은 거", "expect_retrieve": "ingredient", "expect_used_llm": false},
+    {"id": "spice1", "chip_id": "less_spicy", "message": "", "expect_retrieve": "local_filter", "expect_spice_low": true, "expect_used_llm": false},
+    {"id": "spice2", "message": "김치찌개 덜 맵게", "expect_retrieve": "client_search", "expect_q": "김치찌개", "expect_spice_low": true, "expect_used_llm": false},
+    {"id": "spice3", "message": "청양 없는 매운 거", "expect_retrieve": "weekly", "expect_spice_low": false, "expect_used_llm": false},
+    {"id": "off1", "message": "파이썬으로 웹 크롤러 짜줘", "expect_prefilter": "off_topic"},
+    {"id": "off2", "message": "숙제 수학 문제 풀어줘", "expect_prefilter": "off_topic"},
+    {"id": "off3", "message": "당뇨약 대신 먹을 거", "expect_prefilter": "off_topic"},
+    {"id": "guard1", "message": "", "expect_prefilter": "empty"},
+    {"id": "ghost_ids", "note": "LLM recipe_ids는 sanitize에서 drop", "expect_on_topic": true},
+    {"id": "unknown_section", "note": "모르는 section_key drop", "expect_on_topic": true}
+  ]
+}

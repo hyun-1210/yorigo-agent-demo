@@ -1,0 +1,13 @@
+# Cloudflare Tunnel 설정 예시
+# 1) cloudflared tunnel login
+# 2) cloudflared tunnel create yorigo-parse
+# 3) tunnel ID를 아래 credentials-file 경로에 반영
+# 4) DNS: cloudflared tunnel route dns yorigo-parse parse.yorigo.kr
+
+tunnel: yorigo-parse
+credentials-file: /Users/yorigo/.cloudflared/<TUNNEL-UUID>.json
+
+ingress:
+  - hostname: parse.yorigo.kr
+    service: http://127.0.0.1:8000
+  - service: http_status:404

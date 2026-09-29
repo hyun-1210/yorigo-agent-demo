@@ -1,0 +1,78 @@
+# Play Console 업로드용 서명 AAB.
+name: Build Android AAB
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    name: Build signed release AAB
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: yorigo-frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Write Android signing files
+        working-directory: yorigo-frontend/android
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          if [ -z "${ANDROID_KEYSTORE_BASE64}" ] || [ -z "${ANDROID_KEYSTORE_PASSWORD}" ] || [ -z "${ANDROID_KEY_PASSWORD}" ] || [ -z "${ANDROID_KEY_ALIAS}" ]; then
+            echo "Missing Android signing secrets. Set ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_PASSWORD, ANDROID_KEY_ALIAS."
+            exit 1
+          fi
+          printf '%s' "${ANDROID_KEYSTORE_BASE64}" | base64 --decode > yorigo-release-key.jks
+          cat > key.properties <<EOF
+          storePassword=${ANDROID_KEYSTORE_PASSWORD}
+          keyPassword=${ANDROID_KEY_PASSWORD}
+          keyAlias=${ANDROID_KEY_ALIAS}
+          storeFile=yorigo-release-key.jks
+          EOF
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Limit Gradle memory for CI
+        working-directory: yorigo-frontend/android
+        run: |
+          set -euo pipefail
+          sed -i 's/^org.gradle.jvmargs=.*/org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=768m -XX:ReservedCodeCacheSize=256m -Dfile.encoding=UTF-8/' gradle.properties
+          cat gradle.properties
+
+      - name: Build release App Bundle
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+        run: flutter build appbundle --release --dart-define-from-file=dart_defines.json
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: yorigo-release-aab
+          path: yorigo-frontend/build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 7

@@ -1,0 +1,4066 @@
+{
+  "generatedAt": "2026-03-19T09:02:38.150262+00:00",
+  "stats": {
+    "recipeDocsScanned": 339,
+    "userDocsScanned": 32,
+    "ingredientCount": 507
+  },
+  "ingredients": {
+    "병아리콩": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 14,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "올리브유": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 16,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "타히니": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레몬": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "마늘": {
+      "dominantShoppingUnit": "개",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 39,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소금": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 91,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "후추": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 84,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "두부": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 28,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "계란": {
+      "dominantShoppingUnit": "구",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 57,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "high"
+    },
+    "식용유": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 58,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "가지": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양파": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 3,
+      "cookingObservationCount": 112,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "청고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "홍고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 12,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "물": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 120,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "냉동오징어": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "대파": {
+      "dominantShoppingUnit": "개",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 67,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "청양고추": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 51,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소면": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참기름": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 71,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고춧가루": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 73,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "설탕": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 89,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 41,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양조간장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "통깨": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 24,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "간장": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 3,
+      "cookingObservationCount": 71,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "얼린 두부": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "간 돼지고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고운 고춧가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생강": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "진간장": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 48,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "맛술": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 30,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 마늘": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 24,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "된장": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 14,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "미원": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참깨": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스위트콘": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "모짜렐라 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "마요네즈": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 13,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "불닭볶음면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "살치살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "트러플 소금": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "백후추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "통마늘": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "방울 토마토": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양송이 버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "미니 아스파라거스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오트밀": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "순두부": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참치액": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 16,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "굴소스": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 30,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쪽파": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 11,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "새우": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 11,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "케첩": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "채소": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추": {
+      "dominantShoppingUnit": "개",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 10,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쌀": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 27,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "신라면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "계란 노른자": {
+      "dominantShoppingUnit": "구",
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "high"
+    },
+    "라면스프": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진마늘": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 71,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "면수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "미역": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치액젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "국간장": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 13,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 16,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쌀뜨물": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "들기름": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매실액": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스팸": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "감자": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 27,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 10,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "버터": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 26,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "깻잎": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지갈비": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고구마": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "떡볶이 떡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "부추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 11,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "월계수잎": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "청주": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "통후추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "후추가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진생강": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양상추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치킨스톡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 14,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참치캔": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오리 다리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "올리브 오일": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지목심": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "미림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 13,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매실청": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "냉이": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "피망": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "또띠아": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "과카몰리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "핫소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "샤워크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "잡채": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쭈꾸미": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파프리카 가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양배추": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 3,
+      "cookingObservationCount": 16,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "물엿": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 14,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생강즙": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭가슴살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "당근": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 30,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "대패삼겹살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "찹쌀가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우유": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 16,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "튀김가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매운 카레가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭다리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "감자전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "카레가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "맛소금": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오렌지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "꿀": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "저당 고추장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "저당 케찹": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "저당 굴소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "알룰로스": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 9,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "크래미": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "부침가루": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "삼겹살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 15,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "순후추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 뒷다리살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "미린": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "감자 전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "식초": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 17,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "표고버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "해물 믹스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "콩나물": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참치액젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전분물": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 11,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "동죽": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "굵은 소금": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "모닝빵": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "땅콩버터": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "중력분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "베이킹파우더": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "요구르트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭다리살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "베트남 고추가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "통밀 또띠야": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "올리브오일": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파스타면": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "편마늘": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "옥수수 또띠야": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오악사카 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "건조 과히요 고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "건조 파실라 고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토 페이스트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "월계수 잎": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오레가노": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "계피": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "신선한 고수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오리 가슴살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오렌지 제스트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "평양고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양송이버섯": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추기름": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "바닐라 아이스크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "코코넛칩": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레몬 제스트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "발사믹 식초": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "솔티드 카라멜": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "에스프레소": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파슬리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "알배추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소주": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레몬주스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "애호박": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "새송이버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "베이컨": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "랍스터": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "라면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소 양지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "노바시 새우": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "찬물": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치아바타": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "홀그레인머스타드": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "블랙베리쨈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "무화과": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "블루베리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "잠봉": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "브리치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "루꼴라": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "밤": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "크림치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다이제": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "초콜릿": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비엔나소세지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "아이스 페이퍼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돈육": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "버섯": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 10,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "두반장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "크러쉬드 페퍼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "냉동새우": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "모듬햄": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "곰탕육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "올리고당": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 13,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다시다": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "숙갓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소고기 갈빗살": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우동면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "숙주": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "무가당 두유": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "아가베시럽": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비정제설탕": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "카카오가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "타피오카 전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "달걀": {
+      "dominantShoppingUnit": "구",
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "high"
+    },
+    "방울토마토": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "상추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "바질": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레몬즙": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "떡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "어묵": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "밥": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "시금치": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "단무지": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "로마 토마토": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "마늘 가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "말린 오레가노": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "말린 바질": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치즈 토틀리니": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파르메산 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "부라타 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "참소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "흰다리 새우": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "무": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 13,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치 액젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 앞다리살": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "묵은지": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "땡초": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "새우젓": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김치국물": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "굵은소금": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "액젓": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "후춧가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우동사리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파스타": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "조미김": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "항정살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "으깨마늘": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "세이지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "디종 머스타드": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "딜": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토 퓨레": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "바질가루": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "냉동만두": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "팽이버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 8,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "딸기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 삼겹살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "사탕수수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "중국 요리용 술": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "중국 백미주": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "흰 후추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스타 아니스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전분 슬러리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "국거리용 소고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고체 카레": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우스터 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "청경채": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "브로콜리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "요리술": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오징어": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "밀가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "셀러리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비건 버터": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비건 크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오트밀크": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "채소 육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비건 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "넛맥": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파프리카": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "훈제 두부": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "아가베 시럽": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "봄 양파": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "칠리 플레이크": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스파게티 면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "로제 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오이": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 7,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우스터소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "사이다": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매운 이탈리안 소시지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "사워 크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "체다 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "냉동 단호박": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "불에 구운 토마토": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 해치 그린 칠리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 할라피뇨": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "슬라이스한 파": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "코셔 소금": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "카이엔 페퍼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "검은깨": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 생강": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "느타리 버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "코인육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전통 된장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고형카레": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "메밀면": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "굴": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 2,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다시마": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "플레인 요거트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "모자렐라 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "호박": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 5,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쇠고기 다시다": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "바닐라빈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "간마늘": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "재래된장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쌈장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소고기 다시다": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파프리카 노랑": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파프리카 빨강": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전복": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "까나리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "옥수수전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "홀그레인 머스타드": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 앞다리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "원당": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "조청": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우삼겹": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "사골육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "저칼로리 케첩": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생굴": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진파": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매생이": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "꽃게": {
+      "dominantShoppingUnit": "개",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "사과": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "그릭 요거트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "슬라이스 치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "라이스페이퍼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭볶음탕용 닭": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김밥김": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "햄": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "깨": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 6,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "맛살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레드페퍼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "피시소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "양지소고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "베이킹 파우더": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소갈비": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "마른 미역": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소고기 양지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "짜파게티 스프": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "체다치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "연어": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "샬롯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오르조": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "건당면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "건목이버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "옐로우 파프리카": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "레드파프리카": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "느타리버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "잡채용 돼지고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "기름": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "굴 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "배 음료": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "목살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "불소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "당면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스파이시 플레이버 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "땅콩": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "밀떡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "매추리알": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치킨 스탁": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "페페론치노": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치킨 스톡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "스파게티": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "모짜렐라치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추참치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "짜장가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "떡사리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생강가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "김자반": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "무첨가 피넛버터": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "바나나": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "무첨가 요거트": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "치즈 떡": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "풋고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "토마토퓨레": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "아보카도": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고구마줄기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "계란노른자": {
+      "dominantShoppingUnit": "구",
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "high"
+    },
+    "청양 고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "채수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭 윙": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "수육용 삼겹살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "흑설탕": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "팔각": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파인애플": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "코코넛 밀크": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "캔참치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소고기 다짐육": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 4,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "빵가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "깨소금": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "메추리알": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "꽈리고추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오리고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 양파": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쌀종이": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 다짐육": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파인애플 통조림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "복숭아 통조림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "닭꼬치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쑥": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치다시마육수": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "커피": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "해물모둠": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "옥수수 시럽": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "까나리액젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우유식빵": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고다치즈": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "갈릭 파우더": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파프리카 파우더": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "옥수수 전분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 3,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "달콤한 칠리 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쌀 식초": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오렌지 주스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "갈색 설탕": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "로메인 면": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전분가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "전분 가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "쯔유": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "노두유": {
+      "dominantShoppingUnit": "ml",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "배추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "춘장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "MSG": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "앞다리살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "백간장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "저염명란": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "한우 등심": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "새송이 버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고등어": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "통밀파스타": {
+      "dominantShoppingUnit": "g",
+      "shoppingObservationCount": 1,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "봄동": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "박력분": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "돼지고기 앞 다리 살": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "디종 머스터드": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "신선한 파슬리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "타임": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오징어젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "짜파게티": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "후레이크": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "크림": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "칠리 크리스프": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "마늘가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "맛간장": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고사리": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "불닭 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "파스타 소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "남은 채소": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "오리 안심": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "청피망": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "깨가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 소고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 돼지고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "다진 대파": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "코코아 파우더": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 2,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "탈지분유": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "구운 카다이프": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "화이트 초콜릿": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "피스타치오 스프레드": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "차돌박이": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "비엔나 소세지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "알배기 배추": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "유부": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "분모자": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "신김치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "얼음물": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "한치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "생오리고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "들깨가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "소시지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치 다시다": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고추 flakes": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "보드카": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "프랑크 소세지": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "배추김치": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "만송이 버섯": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "멸치가루": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "순아멸치액젓": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "만두 (동그랑땡)": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "불고기": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "우엉": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "식빵": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "딸기잼": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    },
+    "고소스": {
+      "dominantShoppingUnit": null,
+      "shoppingObservationCount": 0,
+      "cookingObservationCount": 1,
+      "pairedObservationCount": 0,
+      "countToMass": null,
+      "confidence": "low"
+    }
+  }
+}

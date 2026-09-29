@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Firebase Auth 세션은 Android Keystore로 암호화되어 저장된다.
+     클라우드/기기 백업으로 prefs만 복원되면 Keystore 키와 불일치해
+     currentUser가 null로 떨어지는 사례가 있어 Auth 관련 prefs는 제외한다. -->
+<full-backup-content>
+    <exclude domain="sharedpref" path="com.google.firebase.auth.api.Store." />
+    <exclude domain="sharedpref" path="com.google.firebase.auth.api.crypto." />
+    <exclude domain="sharedpref" path="com.google.firebase.auth." />
+</full-backup-content>

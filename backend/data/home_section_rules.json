@@ -1,0 +1,218 @@
+{
+  "world_cup": {
+    "anyTags": ["안주", "술안주", "맥주안주"],
+    "titleKeywords": [
+      "치킨", "후라이드", "양념치킨", "닭강정", "강정", "윙",
+      "튀김", "감자튀김", "치즈스틱", "모짜렐라", "나초", "깐풍", "꿔바로우",
+      "꼬치", "양꼬치", "닭발", "똥집", "쥐포", "노가리", "먹태",
+      "황태", "육포", "마른안주", "훈제",
+      "감바스", "곱창", "막창", "골뱅이", "골뱅이무침", "조개", "홍합",
+      "파전", "김치전", "해물파전", "부침개", "두부김치",
+      "어묵", "오뎅", "떡볶이", "핫도그", "소시지",
+      "안주", "술안주", "맥주안주", "피자"
+    ],
+    "excludeTitleKeywords": [
+      "밥", "죽", "리조또", "리소토",
+      "볶음밥", "비빔밥", "덮밥", "국밥", "김밥", "주먹밥", "카레밥",
+      "찌개", "국", "탕", "조림", "찜",
+      "반찬", "밑반찬", "도시락",
+      "국수", "라면", "파스타", "스파게티"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60,
+    "activeUntil": "2026-07-31"
+  },
+  "baby_food": {
+    "anyTags": [
+      "이유식", "유아식", "아기", "애기", "아가", "유아", "베이비", "baby",
+      "아이반찬", "아이간식", "유아용", "아이용"
+    ],
+    "titleKeywords": [
+      "이유식", "유아식", "아기", "애기", "아가", "유아", "베이비", "baby"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "dessert": {
+    "anyTags": ["디저트", "베이킹", "홈베이킹", "달달한", "달콤한", "간식용", "간식", "디저트류"],
+    "titleKeywords": [
+      "디저트", "케이크", "컵케이크", "롤케이크", "치즈케이크", "쿠키", "베이킹",
+      "마카롱", "브라우니", "푸딩", "스콘", "타르트", "마들렌", "휘낭시에",
+      "도넛", "초코", "초콜릿", "티라미수", "무스", "젤리", "아이스크림", "젤라또", "빙수",
+      "약과", "양갱", "단팥", "파이", "슈크림", "와플", "팬케이크", "크레페",
+      "구움과자", "레어치즈", "몽블랑", "에끌레르", "까눌레", "스무디"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "sauce": {
+    "titleKeywords": [
+      "소스", "양념장", "드레싱", "만능간장", "만능장", "맛간장", "맛장",
+      "쌈장", "초장", "초고추장", "페스토", "디핑", "비빔장", "겉절이양념",
+      "비법양념", "만능양념", "만능소스", "비법소스", "디핑소스"
+    ],
+    "excludeTitleKeywords": [
+      "파스타", "스파게티", "덮밥", "밥", "면", "국수", "볶음", "구이",
+      "조림", "찜", "탕", "찌개", "국", "샐러드", "떡볶이", "무침", "비빔국수"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "moment_late_night": {
+    "anyTags": ["야식각", "야식"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "moment_morning": {
+    "anyTags": ["아침", "아침용", "아침밥", "집밥용", "집밥"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "moment_guest": {
+    "anyTags": ["손님용", "손님상"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "moment_solo": {
+    "anyTags": ["혼밥용", "혼밥", "자취", "자취저녁"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "moment_dinner": {
+    "anyTags": ["저녁", "가족", "가족저녁", "집밥용", "집밥"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "quick_10min": {
+    "timeMaxMinutes": 10,
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "ingredients_5": {
+    "maxIngredients": 5,
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "comfort_bowl": {
+    "menuTypes": ["국", "찌개", "국물", "탕"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 60
+  },
+  "high_protein": {
+    "proteinMin": 15,
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "proteinDesc",
+    "limit": 60
+  },
+  "lean_strong": {
+    "proteinMin": 20,
+    "fatMax": 12,
+    "excludeTitleKeywords": [
+      "튀김", "후라이드", "치킨", "강정", "깐풍", "꿔바로우", "탕수",
+      "피자", "햄버거", "버거", "핫도그", "라면", "짜파", "마요",
+      "크림", "베이컨", "소시지", "곱창", "막창", "삼겹", "대패",
+      "떡볶이", "순대", "케이크", "쿠키", "디저트", "도넛", "베이킹",
+      "초코", "브라우니", "와플", "팬케이크", "아이스크림", "빙수",
+      "전", "부침", "그라탕", "까르보", "로제", "버터"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "proteinDesc",
+    "limit": 60
+  },
+  "program_pyeonstorang": {
+    "sourceKeywords": [
+      "신상출시 편스토랑",
+      "편스토랑",
+      "fun-staurant",
+      "fun staurant"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_fridge": {
+    "sourceKeywords": [
+      "냉장고를 부탁해",
+      "냉부해",
+      "냉부"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_best_cooking": {
+    "sourceKeywords": [
+      "최고의 요리비결",
+      "최요비",
+      "best cooking secrets"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_culinary_class_wars": {
+    "sourceKeywords": [
+      "흑백요리사",
+      "요리 계급 전쟁",
+      "culinary class wars"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_street_restaurant_fighter": {
+    "sourceKeywords": [
+      "스트릿 레스토랑 파이터",
+      "street restaurant fighter"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_bake_your_dream": {
+    "sourceKeywords": [
+      "천하제빵",
+      "베이크 유어 드림",
+      "bake your dream"
+    ],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_altoran": {
+    "sourceKeywords": ["알토란"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_sumi_side_dishes": {
+    "sourceKeywords": ["수미네 반찬"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_home_food_baek": {
+    "sourceKeywords": ["집밥 백선생", "집밥백선생"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  },
+  "program_korean_food_battle": {
+    "sourceKeywords": ["한식대첩"],
+    "excludePlatforms": ["naver_blog"],
+    "sortBy": "parsedAtDesc",
+    "limit": 90
+  }
+}
